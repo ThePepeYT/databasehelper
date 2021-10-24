@@ -1,9 +1,13 @@
 # DatabaseHelper
 A Java library for easier using databases
 
-# What DataBase is using library now?
+# What Database is using library now?
 
 Now in plans is only MySQL,SQLite3 and PostgreSQL
+
+# Installation
+
+Get it on [JitPack](https://jitpack.io/#ThePepeYT/databasehelper/-SNAPSHOT)
 
 # How to use with Sqlite3?
 ```java
