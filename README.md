@@ -49,7 +49,7 @@ Now in plans is only MySQL,SQLite3 and PostgreSQL
 
 
         System.out.println(db.getColumn("player", "MONEY", what, where));
-        /100
+        //100
 
         db.updateColumn("player", "MONEY", what, where, 150);
 
