@@ -15,10 +15,6 @@ Get it on [JitPack](https://jitpack.io/#ThePepeYT/databasehelper/-SNAPSHOT)
         final Sqlite3 db = databasehelper.Sqlite3builder()
                 .file(file)
                 .build();
-
-
-    
-        
 ```
 # How to use with MySQL?
 ```java
@@ -29,8 +25,6 @@ Get it on [JitPack](https://jitpack.io/#ThePepeYT/databasehelper/-SNAPSHOT)
                 .user("myuser")
                 .password("mypassword")
                 .build();
-
-        
 ```
 
 # How to use with PostGreSQL?
@@ -42,8 +36,6 @@ Get it on [JitPack](https://jitpack.io/#ThePepeYT/databasehelper/-SNAPSHOT)
                 .user("myuser")
                 .password("mypassword")
                 .build();
-
-        
 ```
 
 
