@@ -1,11 +1,8 @@
 package com.thepepeyt.databasehelper.BaseTypes;
 
-import com.thepepeyt.databasehelper.databasehelper;
-
-
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.function.Consumer;
+
 import java.util.stream.Collectors;
 
 public class Mysql {
@@ -16,8 +13,7 @@ public class Mysql {
     private String user;
     private String password;
     private Connection connection;
-
-    private ArrayList<String> table = new ArrayList<String>();
+    
 
     public Mysql(String database, String host, String user, String password, int port) {
         this.database = database;
@@ -134,6 +130,15 @@ public class Mysql {
 
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + table + String.join(" AND ", where));
+            where.forEach(x -> {
+                try {
+                    statement.setObject(where.indexOf(x) + 1, where.get(where.indexOf(x)));
+                } catch (SQLException e) {
+                    throw new IllegalStateException("The values that you give should be the same that u set in createTable :)");
+
+
+                }
+            });
             ResultSet results = statement.executeQuery();
             results.next();
             Object result = results.getObject(column);
@@ -145,15 +150,3 @@ public class Mysql {
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
