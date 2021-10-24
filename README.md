@@ -84,5 +84,7 @@ Get it on [JitPack](https://jitpack.io/#ThePepeYT/databasehelper/-SNAPSHOT)
 
         System.out.println(db.getColumn("player", "MONEY", what, where));
         //150
+
+        db.disconnect()
 ```
 
