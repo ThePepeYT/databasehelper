@@ -17,7 +17,7 @@ Now in plans is only MySQL,SQLite3 and PostgreSQL
         
 ```
 # How to use with MySQL?
-```
+```java
         final Mysql db = new MysqlBuilder()
                 .database("mydatabase")
                 .host("myhost")
@@ -31,7 +31,7 @@ Now in plans is only MySQL,SQLite3 and PostgreSQL
 
 
 # Methods
-```
+```java
         db.connect();
         System.out.println("Connected with database");
 
