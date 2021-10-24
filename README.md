@@ -33,6 +33,19 @@ Get it on [JitPack](https://jitpack.io/#ThePepeYT/databasehelper/-SNAPSHOT)
         
 ```
 
+# How to use with PostGreSQL?
+```java
+        final Postgresql db = new PostgresqlBuilder()
+                .database("mydatabase")
+                .host("myhost")
+                .port(3306)
+                .user("myuser")
+                .password("mypassword")
+                .build();
+
+        
+```
+
 
 # Methods
 ```java
