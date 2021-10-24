@@ -76,10 +76,8 @@ public class Mysql {
         PreparedStatement ps = null;
         try {
             StringBuilder something = new StringBuilder();
-            for (int i = 0; i < string.size(); i++) {
-                something.append(string.get(i) + ", ");
-            }
-            ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + table + "(" + something + ")");
+            string.forEach(x -> something.append("?,"));
+            ps = connection.prepareStatement("CREATE TABLE IF NOT EXISTS " + table + "(" + something.substring(0, something.length() - 1) + ")");
             ps.execute();
             ps.close();
         } catch (SQLException e) {
