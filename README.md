@@ -13,7 +13,7 @@ Now in plans is only MySQL,SQLite3 and PostgreSQL
                 .build();
 
         db.connect();
-        System.out.println("polaczono z baza danych");
+        System.out.println("Connected with database");
 
         ArrayList<String> string = new ArrayList<>();
         string.add("UUID STRING");
@@ -21,7 +21,7 @@ Now in plans is only MySQL,SQLite3 and PostgreSQL
         string.add("MONEY Int");
 
         db.createTable("player", string);
-        System.out.println("Stworzono player table");
+        System.out.println("Created player table");
 
 
         ArrayList<String> into = new ArrayList<>();
@@ -36,7 +36,7 @@ Now in plans is only MySQL,SQLite3 and PostgreSQL
 
 
         db.insertInto("player",into,values);
-        System.out.println("Zinsertowano");
+        System.out.println("Inserted");
 
 
         ArrayList<String> what = new ArrayList<>();
@@ -49,10 +49,12 @@ Now in plans is only MySQL,SQLite3 and PostgreSQL
 
 
         System.out.println(db.getColumn("player", "MONEY", what, where));
+        /100
 
         db.updateColumn("player", "MONEY", what, where, 150);
 
         System.out.println(db.getColumn("player", "MONEY", what, where));
+        //150
 
 
     }
