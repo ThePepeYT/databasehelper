@@ -7,7 +7,6 @@ Now in plans is only MySQL,SQLite3 and PostgreSQL
 
 # How to use?
 ```java
-    public void sqlite3test throws SQLException, ClassNotFoundException {
         File file = new File("database.db");
         final Sqlite3 db = databasehelper.Sqlite3builder()
                 .file(file)
@@ -47,6 +46,11 @@ Now in plans is only MySQL,SQLite3 and PostgreSQL
         values.add("2323234324");
 
 
+
+
+        System.out.println(db.getColumn("player", "MONEY", what, where));
+
+        db.updateColumn("player", "MONEY", what, where, 150);
 
         System.out.println(db.getColumn("player", "MONEY", what, where));
 
