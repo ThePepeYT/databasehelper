@@ -6,8 +6,9 @@ A Java library for easier using databases
 Now in plans is only MySQL,SQLite3 and PostgreSQL
 <br>
 If u wanna me to add another database?
-Join discord [DISCORD](https://discord.gg/94hn6qpj)
 </br>
+Join discord [DISCORD](https://discord.gg/94hn6qpj)
+
 
 # Installation
 
