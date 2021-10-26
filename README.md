@@ -47,6 +47,19 @@ AbstractSQLDatabase db = DatabaseHelper.postgreSQLBuilder()
   .build();
 ```
 
+# How to use with MariaDB?
+```java
+AbstractSQLDatabase db = DatabaseHelper.mariaDBBuilder()
+  .database("mydatabase")
+  .host("myhost")
+  //if you not gonna add port value default will be "3306"
+  .port(3306)
+   //if you not gonna add user default will be "root"
+  .user("myuser")
+  .password("mypassword")
+  .build();
+```
+
 
 # Methods
 ```java
