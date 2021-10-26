@@ -26,8 +26,10 @@ SQLite3 db = DatabaseHelper.sqLite3Builder()
 AbstractSQLDatabase db = DatabaseHelper.mySQLBuilder()
   .database("mydatabase")
   .host("myhost")
+  //if you not gonna add port value default will be "3306"
   .port(3306)
-  .user("myuser")
+  //if you not gonna add user default will be "root"
+  .user("myuser")")
   .password("mypassword")
   .build();
 ```
@@ -37,7 +39,9 @@ AbstractSQLDatabase db = DatabaseHelper.mySQLBuilder()
 AbstractSQLDatabase db = DatabaseHelper.postgreSQLBuilder()
   .database("mydatabase")
   .host("myhost")
+  //if you not gonna add port value default will be "3306"
   .port(3306)
+  //if you not gonna add user default will be "root"
   .user("myuser")
   .password("mypassword")
   .build();
