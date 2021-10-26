@@ -138,6 +138,24 @@ db.insertInto("player", into, values);
 
 ```
 
+## getColumn
+Get data from choosed column
+<br>
+Example:
+</br>
+
+```java
+ArrayList<String> what = new ArrayList<>();
+values.add("UUID");
+
+ArrayList<Object> where = new ArrayList<>();
+values.add("2323234324");
+
+
+System.out.println(db.getColumn("player", "MONEY", what, where));
+//This code gonna return 100.0 that we inserted in code above
+```
+
 ```java
         db.connect();
         System.out.println("Connected with database");
