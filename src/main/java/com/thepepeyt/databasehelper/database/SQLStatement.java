@@ -205,8 +205,10 @@ public class SQLStatement implements DatabaseConnection {
         this.connection = null;
     }
 
-    private void preparedStatement(final String sql,
-                                   final Consumer<PreparedStatement> consumer) throws SQLException {
+    private void preparedStatement(final String sql, final Consumer<PreparedStatement> consumer) throws SQLException {
+        if(connection == null){
+            throw new NullPointerException("Connection cannot be null");
+        }
         try (final PreparedStatement ps = connection.prepareStatement(sql)) {
             consumer.accept(ps);
         } catch (SQLException ex) {
