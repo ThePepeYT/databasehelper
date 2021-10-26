@@ -184,7 +184,7 @@ db.updateColumn("player", "MONEY", what, where, 150);
 //Updates column from table player where column UUID is "2323234324"
 ```
 
-## Exists
+## ifExists
 Check if in table is column with an data
 
 ```java
