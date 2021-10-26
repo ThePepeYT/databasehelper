@@ -16,31 +16,31 @@ Get it on [JitPack](https://jitpack.io/#ThePepeYT/databasehelper/-SNAPSHOT)
 
 # How to use with Sqlite3?
 ```java
-        File file = new File("database.db");
-        final Sqlite3 db = databasehelper.Sqlite3builder()
-                .file(file)
-                .build();
+File file = new File("database.db");
+SQLite3 db = DatabaseHelper.sqLite3Builder()
+  .file(file)
+  .build();
 ```
 # How to use with MySQL?
 ```java
-        final Mysql db = new MysqlBuilder()
-                .database("mydatabase")
-                .host("myhost")
-                .port(3306)
-                .user("myuser")
-                .password("mypassword")
-                .build();
+AbstractSQLDatabase db = DatabaseHelper.mySQLBuilder()
+  .database("mydatabase")
+  .host("myhost")
+  .port(3306)
+  .user("myuser")
+  .password("mypassword")
+  .build();
 ```
 
 # How to use with PostGreSQL?
 ```java
-        final Postgresql db = new PostgresqlBuilder()
-                .database("mydatabase")
-                .host("myhost")
-                .port(3306)
-                .user("myuser")
-                .password("mypassword")
-                .build();
+AbstractSQLDatabase db = DatabaseHelper.postgreSQLBuilder()
+  .database("mydatabase")
+  .host("myhost")
+  .port(3306)
+  .user("myuser")
+  .password("mypassword")
+  .build();
 ```
 
 
