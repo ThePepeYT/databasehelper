@@ -98,6 +98,7 @@ string.add("LEVEL INT");
 string.add("MONEY Int");
 
 db.createTable("player", string);
+```
 
 ```java
         db.connect();
