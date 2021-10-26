@@ -108,7 +108,7 @@ db.createTable("player", string);
 ## insertInto
 Insert data into table
 <br>
-<strong>To use it first u must create Table<strong>
+<strong>To use it first u must create Table</strong>
 Example:
 </br>
 ```java
