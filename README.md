@@ -55,6 +55,10 @@ AbstractSQLDatabase db = DatabaseHelper.postgreSQLBuilder()
         string.add("MONEY Int");
 
         db.createTable("player", string);
+        //inserted to player table 3 new columns
+        // UUID that only can have String
+        //LEVEL that only can have Int
+        //MONEY that only can have Int
         System.out.println("Created player table");
 
 
