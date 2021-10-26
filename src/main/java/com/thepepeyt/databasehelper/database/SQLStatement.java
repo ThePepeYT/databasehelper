@@ -4,16 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class SQLStatement implements DatabaseConnection {
     private static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " +
-            "{TABLE} ({DATA})";
+            "{TABLE} ({COLUMNS})";
     private static final String INSERT_INTO = "INSERT INTO {TABLE} ({INTO}) " +
-            "VALUES ({VALUES}";
+            "VALUES ({VALUES})";
     private static final String SELECT_FROM = "SELECT * FROM {TABLE}";
     private static final String UPDATE_COLUMN = "UPDATE {TABLE} SET {COLUMN}=?";
     private static final String WHERE = "WHERE {WHAT} =?";
@@ -24,9 +24,9 @@ public class SQLStatement implements DatabaseConnection {
         this.connection = connection;
     }
 
-    public void createTable(final String table, final ArrayList<String> string) throws SQLException {
+    public void createTable(final String table, final List<String> string) throws SQLException {
         preparedStatement(CREATE_TABLE.replace("{TABLE}", table).replace(
-                "{DATA}", string.stream().collect(Collectors
+                "{COLUMNS}", string.stream().collect(Collectors
                         .joining(", ", "", ""))), preparedStatement -> {
             try {
                 preparedStatement.execute();
@@ -36,8 +36,8 @@ public class SQLStatement implements DatabaseConnection {
         });
     }
 
-    public void insertInto(final String table, final ArrayList<String> into,
-            ArrayList<Object> values) throws SQLException {
+    public void insertInto(final String table, final List<String> into,
+            List<Object> values) throws SQLException {
         if (into.size() != values.size()) {
             Logger.getLogger("There should be the same amount of values and column names");
         }
@@ -77,7 +77,7 @@ public class SQLStatement implements DatabaseConnection {
     }
 
     public Object getColumn(final String table, final String column,
-            final ArrayList<String> where, final ArrayList<Object> what) throws SQLException {
+            final List<String> where, final List<Object> what) throws SQLException {
         final Object[] object = new Object[1];
         if (where.size() != what.size()) {
             Logger.getLogger("There should be the same amount of values and column names");
@@ -117,7 +117,7 @@ public class SQLStatement implements DatabaseConnection {
     }
 
     public void updateColumn(final String table, final String column,
-            final ArrayList<String> where, final ArrayList<Object> what,
+            final List<String> where, final List<Object> what,
             final Object something) throws SQLException {
         if (where.size() != what.size()) {
             Logger.getLogger("There should be the same amount of values and column names");
