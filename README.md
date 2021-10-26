@@ -62,6 +62,20 @@ AbstractSQLDatabase db = DatabaseHelper.mariaDBBuilder()
 
 
 # Methods
+
+## Connect
+Connect method just create connection of your program with database.
+Example:
+```java
+File file = new File("database.db");
+SQLite3 db = DatabaseHelper.sqLite3Builder()
+  .file(file)
+  .build();
+ 
+ db.connect();
+
+```
+
 ```java
         db.connect();
         System.out.println("Connected with database");
