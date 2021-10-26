@@ -95,9 +95,14 @@ ArrayList<String> string = new ArrayList<>();
 
 string.add("UUID STRING");
 string.add("LEVEL INT");
-string.add("MONEY Int");
+string.add("MONEY LONG");
 
 db.createTable("player", string);
+
+//Create table "Player" with tables
+//UUID with String
+//LEVEL with INT
+//MONEY with LONG
 ```
 
 ```java
