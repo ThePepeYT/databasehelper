@@ -65,7 +65,10 @@ AbstractSQLDatabase db = DatabaseHelper.mariaDBBuilder()
 
 ## Connect
 Connect method just create connection of your program with database.
+<strong>U MUST USE IT BEFORSE USING ANY METHOD</strong>
+
 <br>
+
 Example:
 </br>
 ```java
@@ -77,6 +80,11 @@ SQLite3 db = DatabaseHelper.sqLite3Builder()
  db.connect();
 
 ```
+## CreateTable
+Create table if not exists bruh
+<br>
+Example:
+</br>
 
 ```java
         db.connect();
