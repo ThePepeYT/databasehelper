@@ -85,6 +85,19 @@ Create table if not exists bruh
 <br>
 Example:
 </br>
+```java
+File file = new File("database.db");
+SQLite3 db = DatabaseHelper.sqLite3Builder()
+   .file(file)
+   .build();
+
+ArrayList<String> string = new ArrayList<>();
+
+string.add("UUID STRING");
+string.add("LEVEL INT");
+string.add("MONEY Int");
+
+db.createTable("player", string);
 
 ```java
         db.connect();
