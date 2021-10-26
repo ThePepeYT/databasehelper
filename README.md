@@ -162,55 +162,35 @@ System.out.println(db.getColumn("player", "MONEY", what, where));
 //This code gonna return 100.0 that we inserted in code above
 ```
 
+## updateColumn
+Update data from choosed column
+<br>
+Example:
+</br>
 ```java
-        db.connect();
-        System.out.println("Connected with database");
+File file = new File("database.db");
+SQLite3 db = DatabaseHelper.sqLite3Builder()
+  .file(file)
+  .build();
+  
+ArrayList<String> what = new ArrayList<>();
+values.add("UUID");
 
-        ArrayList<String> string = new ArrayList<>();
-        string.add("UUID STRING");
-        string.add("LEVEL INT");
-        string.add("MONEY Int");
+ArrayList<Object> where = new ArrayList<>();
+values.add("2323234324");
 
-        db.createTable("player", string);
-        //inserted to player table 3 new columns
-        // UUID that only can have String
-        //LEVEL that only can have Int
-        //MONEY that only can have Int
-        System.out.println("Created player table");
+db.updateColumn("player", "MONEY", what, where, 150);
 
-
-        ArrayList<String> into = new ArrayList<>();
-        into.add("UUID");
-        into.add("LEVEL");
-        into.add("MONEY");
-
-        ArrayList<Object> values = new ArrayList<>();
-        values.add("2323234324");
-        values.add(2);
-        values.add(100);
-
-
-        db.insertInto("player", into, value);
-        System.out.println("Inserted");
-
-
-        ArrayList<String> what = new ArrayList<>();
-        values.add("UUID");
-
-        ArrayList<Object> where = new ArrayList<>();
-        values.add("2323234324");
-
-
-
-
-        System.out.println(db.getColumn("player", "MONEY", what, where));
-        //100
-
-        db.updateColumn("player", "MONEY", what, where, 150);
-
-        System.out.println(db.getColumn("player", "MONEY", what, where));
-        //150
-
-        db.disconnect();
+//Updates column from table player where column UUID is "2323234324"
 ```
 
+## disconnect
+Disconnect method just disonnects your program from database
+```java
+File file = new File("database.db");
+SQLite3 db = DatabaseHelper.sqLite3Builder()
+  .file(file)
+  .build();
+  
+db.disconnect();
+```
