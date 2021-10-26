@@ -65,7 +65,7 @@ AbstractSQLDatabase db = DatabaseHelper.mariaDBBuilder()
 
 ## Connect
 Connect method just create connection of your program with database.
-<strong>U MUST USE IT BEFORSE USING ANY METHOD</strong>
+<strong>U MUST USE IT BEFORE USING ANY METHOD</strong>
 
 <br>
 
