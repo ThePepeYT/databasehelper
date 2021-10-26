@@ -95,14 +95,47 @@ ArrayList<String> string = new ArrayList<>();
 
 string.add("UUID STRING");
 string.add("LEVEL INT");
-string.add("MONEY LONG");
+string.add("MONEY DOUBLE");
 
 db.createTable("player", string);
 
-//Create table "Player" with tables
+//Create table "Player" with columns
 //UUID with String
 //LEVEL with INT
-//MONEY with LONG
+//MONEY with DOUBLE
+```
+
+## insertInto
+Insert data into table
+<br>
+<strong>To use it first u must create Table<strong>
+Example:
+</br>
+```java
+File file = new File("database.db");
+SQLite3 db = DatabaseHelper.sqLite3Builder()
+   .file(file)
+   .build();
+
+
+ArrayList<String> into = new ArrayList<>();
+into.add("UUID");
+into.add("LEVEL");
+into.add("MONEY");
+
+ArrayList<Object> values = new ArrayList<>();
+
+values.add("2323234324");
+values.add(2);
+values.add(100.0);
+
+db.insertInto("player", into, values);
+
+//We inserted data to 3 columns
+//Into UUID we inserted "2323234324"
+//Into LEVEL we inserted 2
+//Into MONEY we inserted 100.0
+
 ```
 
 ```java
@@ -133,7 +166,7 @@ db.createTable("player", string);
         values.add(100);
 
 
-        db.insertInto("player",into,values);
+        db.insertInto("player", into, value);
         System.out.println("Inserted");
 
 
