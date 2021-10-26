@@ -145,6 +145,12 @@ Example:
 </br>
 
 ```java
+File file = new File("database.db");
+SQLite3 db = DatabaseHelper.sqLite3Builder()
+  .file(file)
+  .build();
+  
+  
 ArrayList<String> what = new ArrayList<>();
 values.add("UUID");
 
