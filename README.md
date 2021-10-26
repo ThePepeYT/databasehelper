@@ -99,7 +99,7 @@ string.add("MONEY DOUBLE");
 
 db.createTable("player", string);
 
-//Create table "Player" with columns
+//Create table "player" with columns
 //UUID with String
 //LEVEL with INT
 //MONEY with DOUBLE
