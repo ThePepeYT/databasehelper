@@ -184,6 +184,27 @@ db.updateColumn("player", "MONEY", what, where, 150);
 //Updates column from table player where column UUID is "2323234324"
 ```
 
+## Exists
+Check if in table is column with an data
+
+```java
+File file = new File("database.db");
+SQLite3 db = DatabaseHelper.sqLite3Builder()
+  .file(file)
+  .build();
+ArrayList<String> what = new ArrayList<>();
+what.add("UUID");
+
+ArrayList<Object> where = new ArrayList<>();
+where.add("2323234324");
+
+db.ifExists("player", what, where);
+
+//check if in table "player" is column with UUID "2323234324"
+
+
+```
+
 ## disconnect
 Disconnect method just disonnects your program from database
 ```java
