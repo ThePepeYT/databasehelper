@@ -202,9 +202,75 @@ db.ifExists("player", what, where).thenAccept(System.out::println);
 
 //check if in table "player" is column with UUID "2323234324"
 
-
-
 ```
+
+## getLeadboard
+Return list of lists where inside list are values
+<br>
+Example:
+</br>
+```java
+File file = new File("database.db");
+SQLite3 db = DatabaseHelper.sqLite3Builder()
+  .file(file)
+  .build();
+
+ArrayList<String> into = new ArrayList<>();
+into.add("UUID");
+into.add("LEVEL");
+into.add("MONEY");
+
+ArrayList<Object> values = new ArrayList<>();
+
+values.add("2323234324");
+values.add(2);
+values.add(100.0);
+
+db.insertInto("player", into, values);
+//////////////////////////////////////////////
+
+ArrayList<String> into2 = new ArrayList<>();
+
+into2.add("UUID");
+into2.add("LEVEL");
+into2.add("MONEY");
+
+ArrayList<Object> values2 = new ArrayList<>();
+
+values2.add("3333333");
+values2.add(3);
+values2.add(150.0);
+
+db.insertInto("player", into2, values2);
+
+//////////////////////////////////////////
+
+ArrayList<String> into3 = new ArrayList<>();
+into3.add("UUID");
+into3.add("LEVEL");
+into3.add("MONEY");
+
+ArrayList<Object> values3 = new ArrayList<>();
+
+values3.add("44444444444");
+values3.add(4);
+values3.add(200.0);
+
+db.insertInto("player", into3, values3);
+
+
+
+db.getLeadboard("player", 3, "MONEY", new ArrayList<String>(List.of(new String[]{"UUID", "LEVEL"})))
+  .thenAccept(leadboard -> {
+    leadboard.forEach(x -> {
+      System.out.println(x.toString());
+
+    });
+  });
+//It's gonna return [44444444444, 4] [3333333, 3] [3333333, 3]
+```
+
+
 
 ## disconnect
 Disconnect method just disonnects your program from database
