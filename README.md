@@ -152,10 +152,10 @@ SQLite3 db = DatabaseHelper.sqLite3Builder()
   
   
 ArrayList<String> what = new ArrayList<>();
-values.add("UUID");
+what.add("UUID");
 
 ArrayList<Object> where = new ArrayList<>();
-values.add("2323234324");
+where.add("2323234324");
 
 
 System.out.println(db.getColumn("player", "MONEY", what, where));
@@ -174,10 +174,10 @@ SQLite3 db = DatabaseHelper.sqLite3Builder()
   .build();
   
 ArrayList<String> what = new ArrayList<>();
-values.add("UUID");
+what.add("UUID");
 
 ArrayList<Object> where = new ArrayList<>();
-values.add("2323234324");
+where.add("2323234324");
 
 db.updateColumn("player", "MONEY", what, where, 150);
 
