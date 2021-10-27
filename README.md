@@ -29,7 +29,7 @@ AbstractSQLDatabase db = DatabaseHelper.mySQLBuilder()
   //if you not gonna add port value default will be "3306"
   .port(3306)
   //if you not gonna add user default will be "root"
-  .user("myuser")")
+  .user("myuser")
   .password("mypassword")
   .build();
 ```

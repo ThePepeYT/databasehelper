@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -28,7 +27,7 @@ public class SQLStatement implements DatabaseConnection {
     }
 
 
-    public void createTable(final String table, final ArrayList<String> string) throws SQLException {
+    public void createTable(final String table, final List<String> string) throws SQLException {
         preparedStatement(CREATE_TABLE.replace("{TABLE}", table).replace(
                 "{COLUMNS}", string.stream().collect(Collectors
                         .joining(", ", "", ""))), preparedStatement -> {
@@ -40,8 +39,8 @@ public class SQLStatement implements DatabaseConnection {
         });
     }
 
-    public void insertInto(final String table, final ArrayList<String> into,
-                           ArrayList<Object> values) throws SQLException {
+    public void insertInto(final String table, final List<String> into,
+                           List<Object> values) throws SQLException {
         if (into.size() != values.size()) {
             Logger.getLogger("There should be the same amount of values and column names");
         }
@@ -86,7 +85,8 @@ public class SQLStatement implements DatabaseConnection {
 
 
     public Object getColumn(final String table, final String column,
-                            final ArrayList<String> where, final ArrayList<Object> what) throws SQLException {
+                            final List<String> where,
+            final List<Object> what) throws SQLException {
         final Object[] object = new Object[1];
         if (where.size() != what.size()) {
             Logger.getLogger("There should be the same amount of values and column names");
@@ -130,7 +130,8 @@ public class SQLStatement implements DatabaseConnection {
     }
 
     public void updateColumn(final String table, final String column,
-                             final ArrayList<String> where, final ArrayList<Object> what,
+                             final List<String> where,
+            final List<Object> what,
                              final Object something) throws SQLException {
         if (where.size() != what.size()) {
             Logger.getLogger("There should be the same amount of values and column names");
@@ -156,7 +157,8 @@ public class SQLStatement implements DatabaseConnection {
         });
     }
 
-    public boolean ifExists(final String table, final ArrayList<String> where, final ArrayList<Object> what) throws SQLException {
+    public boolean ifExists(final String table, final List<String> where,
+            final List<Object> what) throws SQLException {
         final Boolean[] exists = {false};
         if (where.size() != what.size()) {
             Logger.getLogger("There should be the same amount of values and column names");
@@ -187,8 +189,6 @@ public class SQLStatement implements DatabaseConnection {
         });
     return exists[0];
     }
-
-
 
     @Override
     public void connect() throws SQLException, ClassNotFoundException {}
