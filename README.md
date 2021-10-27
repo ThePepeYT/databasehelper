@@ -158,7 +158,7 @@ ArrayList<Object> where = new ArrayList<>();
 where.add("2323234324");
 
 
-System.out.println(db.getColumn("player", "MONEY", what, where).get());
+db.getColumn("player", "MONEY", what, where).thenAccept(System.out::println);
 //This code gonna return 100.0 that we inserted in code above
 ```
 
@@ -198,9 +198,10 @@ what.add("UUID");
 ArrayList<Object> where = new ArrayList<>();
 where.add("2323234324");
 
-db.ifExists("player", what, where).get();
+db.ifExists("player", what, where).thenAccept(System.out::println);
 
 //check if in table "player" is column with UUID "2323234324"
+
 
 
 ```
