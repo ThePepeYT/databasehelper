@@ -261,6 +261,48 @@ public class SQLStatement implements DatabaseConnection {
         return completableFuture;
     }
 
+    public CompletableFuture<List<List<Object>>> getLeadboard(String table, int limit, String orderBY, ArrayList<String> into) throws SQLException {
+        final CompletableFuture<List<List<Object>>> completableFuture = new CompletableFuture<>();
+        Executors.newCachedThreadPool().submit(() -> {
+            List<List<Object>> list = new ArrayList<>();
+
+
+            try {
+                preparedStatement(LEADBOARD
+                        .replace("{TABLE}", table)
+                        .replace("{LIMIT}", String.valueOf(limit))
+                        .replace("{VALUES}", into.stream().collect(Collectors.joining(",", "", "")))
+                        .replace("{ORDER}", orderBY), statement -> {
+                    try {
+                        ResultSet rs = statement.executeQuery();
+                        while (rs.next()) {
+                            List<Object> playerlist = new ArrayList<>();
+                            into.forEach(x -> {
+                                try {
+                                    playerlist.add(rs.getObject(into.indexOf(x) + 1));
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                    completableFuture.complete(null);
+                                }
+                            });
+                            list.add(playerlist);
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        completableFuture.complete(null);
+                    }
+
+
+                });
+            } catch (SQLException e) {
+                e.printStackTrace();
+                completableFuture.complete(null);
+            }
+            completableFuture.complete(list);
+        });
+
+        return completableFuture;
+    }
 
 
     @Override
