@@ -267,7 +267,7 @@ db.getLeadboard("player", 3, "MONEY", new ArrayList<String>(List.of(new String[]
 
     });
   });
-//It's gonna return [44444444444, 4] [3333333, 3] [3333333, 3]
+//It's gonna return [44444444444, 4] [3333333, 3] [2323234324, 2]
 ```
 
 
