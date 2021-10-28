@@ -22,6 +22,7 @@ public class SQLStatement implements DatabaseConnection {
     static final String WHERE = "WHERE {WHAT} =? AND";
     private static final String EXISTS = "SELECT * FROM {TABLE}";
     private static final String LEADBOARD = "SELECT {VALUES} from {TABLE} ORDER BY {ORDER} DESC LIMIT {LIMIT}";
+    private static final String DELETE = "DELETE {VALUES} FROM {TABLE}";
 
 
     protected Connection connection;
