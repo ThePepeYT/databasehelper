@@ -22,7 +22,7 @@ public class SQLStatement implements DatabaseConnection {
     static final String WHERE = "WHERE {WHAT} =? AND";
     private static final String EXISTS = "SELECT * FROM {TABLE}";
     private static final String LEADBOARD = "SELECT {VALUES} from {TABLE} ORDER BY {ORDER} DESC LIMIT {LIMIT}";
-    private static final String DELETE = "DELETE {VALUES} FROM {TABLE}";
+    private static final String DELETE = "DELETE FROM {TABLE}";
 
 
     protected Connection connection;
@@ -84,7 +84,7 @@ public class SQLStatement implements DatabaseConnection {
     }
 
     public Object getColumn(final String table, final String column) throws SQLException {
-        final Object[] object = new Object[1];
+
 
 
         final CompletableFuture<Object> completableFuture = new CompletableFuture<>();
@@ -312,9 +312,9 @@ public class SQLStatement implements DatabaseConnection {
             try {
 
 
+
                 preparedStatement(DELETE
-                        .replace("{TABLE}", table)
-                        .replace("{VALUES}", delete.stream().collect(Collectors.joining(",", "", ""))) + " " + String.join(" AND ", where)
+                        .replace("{TABLE}", table) + " " + String.join(" AND ", where)
                 , preparedStatement -> {
                     what.forEach(x -> {
                         try {
