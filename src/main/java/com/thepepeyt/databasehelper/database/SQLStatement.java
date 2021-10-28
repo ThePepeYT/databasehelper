@@ -313,6 +313,7 @@ public class SQLStatement implements DatabaseConnection {
 
 
 
+
                 preparedStatement(DELETE
                         .replace("{TABLE}", table) + " " + String.join(" AND ", where)
                 , preparedStatement -> {
@@ -324,6 +325,11 @@ public class SQLStatement implements DatabaseConnection {
                             e.printStackTrace();
                         }
                     });
+                            try {
+                                preparedStatement.executeUpdate();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
                         });
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -333,7 +339,6 @@ public class SQLStatement implements DatabaseConnection {
         });
 
     }
-
 
 
     @Override
