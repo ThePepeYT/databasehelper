@@ -310,9 +310,13 @@ public class SQLStatement implements DatabaseConnection {
             where.forEach(x -> where.set(where.indexOf(x), "WHERE " + x + " =?"));
 
             try {
+
+                System.out.println(DELETE
+                        .replace("{TABLE}", table)
+                        .replace("{VALUES}", delete.stream().collect(Collectors.joining(",", "", "")) + " " + String.join(" AND ", where)));
                 preparedStatement(DELETE
                         .replace("{TABLE}", table)
-                        .replace("{VALUES", delete.stream().collect(Collectors.joining(",", "", "")) + String.join(" AND ", where))
+                        .replace("{VALUES}", delete.stream().collect(Collectors.joining(",", "", "")) + String.join(" AND ", where))
                 , preparedStatement -> {
                     what.forEach(x -> {
                         try {
