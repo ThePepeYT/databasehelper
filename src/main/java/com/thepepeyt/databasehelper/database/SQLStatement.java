@@ -304,7 +304,7 @@ public class SQLStatement implements DatabaseConnection {
         return completableFuture;
     }
 
-    public void deleteFrom(String table, ArrayList<String> delete, ArrayList<String> where, ArrayList<String> what){
+    public void deleteFrom(String table, ArrayList<String> delete, ArrayList<String> where, ArrayList<Object> what){
         Executors.newCachedThreadPool().execute(() -> {
 
             where.forEach(x -> where.set(where.indexOf(x), "WHERE " + x + " =?"));
