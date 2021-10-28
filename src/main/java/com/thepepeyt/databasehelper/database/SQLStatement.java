@@ -303,6 +303,34 @@ public class SQLStatement implements DatabaseConnection {
         return completableFuture;
     }
 
+    public void deleteFrom(String table, ArrayList<String> delete, ArrayList<String> where, ArrayList<String> what){
+        Executors.newCachedThreadPool().execute(() -> {
+
+            where.forEach(x -> where.set(where.indexOf(x), "WHERE " + x + " =?"));
+
+            try {
+                preparedStatement(DELETE
+                        .replace("{TABLE}", table)
+                        .replace("{VALUES", delete.stream().collect(Collectors.joining(",", "", "")) + String.join(" AND ", where))
+                , preparedStatement -> {
+                    what.forEach(x -> {
+                        try {
+                            preparedStatement.setObject(what.indexOf(x) + 1, what.get(what
+                                    .indexOf(x)));
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                        });
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+        });
+
+    }
+
 
 
     @Override
