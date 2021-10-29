@@ -54,7 +54,8 @@ public class SQLStatement implements DatabaseConnection {
             if (into.size() != values.size()) {
                 Logger.getLogger("There should be the same amount of values and column names");
             }
-            final String append = String.join("?, ", into);
+            StringBuilder something = new StringBuilder();
+            into.forEach(x -> something.append("?,"));
 
             try {
                 preparedStatement(INSERT_INTO.replace("{TABLE}", table)
