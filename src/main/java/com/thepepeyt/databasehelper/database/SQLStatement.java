@@ -32,7 +32,7 @@ public class SQLStatement implements DatabaseConnection {
     }
 
 
-    public void createTable(final String table, final ArrayList<String> string) throws SQLException {
+    public void createTable(final String table, final List<String> string) throws SQLException {
         Executors.newCachedThreadPool().execute(() -> {
             try {
                 System.out.println(CREATE_TABLE.replace("{TABLE}", table).replace(
@@ -53,8 +53,8 @@ public class SQLStatement implements DatabaseConnection {
         });
     }
 
-    public void insertInto(final String table, final ArrayList<String> into,
-                           ArrayList<Object> values) throws SQLException {
+    public void insertInto(final String table, final List<String> into,
+                           List<Object> values) throws SQLException {
         Executors.newCachedThreadPool().execute(() -> {
             if (into.size() != values.size()) {
                 Logger.getLogger("There should be the same amount of values and column names");
@@ -64,14 +64,14 @@ public class SQLStatement implements DatabaseConnection {
 
             try {
                 preparedStatement(INSERT_INTO.replace("{TABLE}", table)
-                        .replace("{INTO}", into.stream().collect(Collectors.joining(",", "", "")) + "")
+                        .replace("{INTO}", String.join(",", into) + "")
                         .replace("{VALUES}", something.substring(0, something.length() - 1)), preparedStatement -> {
                     try {
                         values.forEach(x -> {
                             try {
                                 if(x instanceof String){
-                                    preparedStatement.setString(values.indexOf(x) + 1, values.get(values
-                                            .indexOf(x)).toString());
+                                    preparedStatement.setString(values.indexOf(x) + 1, (String) values.get(values
+                                            .indexOf(x)));
                                 }
                                 if(x instanceof Integer){
                                     preparedStatement.setInt(values.indexOf(x) + 1, (Integer) values.get(values
@@ -139,7 +139,7 @@ public class SQLStatement implements DatabaseConnection {
 
 
     public CompletableFuture<Object> getColumn(final String table, final String column,
-                                               final ArrayList<String> where, final ArrayList<Object> what) throws SQLException {
+                                               final List<String> where, final List<Object> what) throws SQLException {
 
         final CompletableFuture<Object> completableFuture = new CompletableFuture<>();
         Executors.newCachedThreadPool().submit(() -> {
@@ -200,7 +200,7 @@ public class SQLStatement implements DatabaseConnection {
     }
 
     public void updateColumn(final String table, final String column,
-                             final ArrayList<String> where, final ArrayList<Object> what,
+                             final List<String> where, final List<Object> what,
                              final Object something) throws SQLException {
         Executors.newCachedThreadPool().execute(() -> {
             if (where.size() != what.size()) {
@@ -236,7 +236,7 @@ public class SQLStatement implements DatabaseConnection {
         });
     }
 
-    public CompletableFuture<Boolean> ifExists(final String table, final ArrayList<String> where, final ArrayList<Object> what) throws SQLException {
+    public CompletableFuture<Boolean> ifExists(final String table, final List<String> where, final List<Object> what) throws SQLException {
         final CompletableFuture<Boolean> completableFuture = new CompletableFuture<>();
         Executors.newCachedThreadPool().submit(() -> {
             if (where.size() != what.size()) {
@@ -281,7 +281,7 @@ public class SQLStatement implements DatabaseConnection {
         return completableFuture;
     }
 
-    public CompletableFuture<List<List<Object>>> getLeadboard(String table, int limit, String orderBY, ArrayList<String> into) throws SQLException {
+    public CompletableFuture<List<List<Object>>> getLeadboard(String table, int limit, String orderBY, List<String> into) throws SQLException {
         final CompletableFuture<List<List<Object>>> completableFuture = new CompletableFuture<>();
         Executors.newCachedThreadPool().submit(() -> {
             List<List<Object>> list = new ArrayList<>();
@@ -324,7 +324,7 @@ public class SQLStatement implements DatabaseConnection {
         return completableFuture;
     }
 
-    public void deleteFrom(String table, ArrayList<String> where, ArrayList<Object> what){
+    public void deleteFrom(String table, List<String> where, List<Object> what){
         Executors.newCachedThreadPool().execute(() -> {
 
             where.forEach(x -> where.set(where.indexOf(x), "WHERE " + x + " =?"));

@@ -5,6 +5,7 @@ import com.thepepeyt.databasehelper.database.type.*;
 
 
 import java.io.File;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,9 +28,14 @@ public class DatabaseHelper {
         db.connect();
         System.out.println("connected");
 
-        db.createTable("tags", new ArrayList<String>(List.of(new String[]{"NAME varchar(100)","CONTENT varchar(100)", "CREATOR varchar(100)"})));
-
-
+        ///b.createTable("tags", List.of("NAME varchar(100)","CONTENT varchar(100)", "CREATOR varchar(100)"));
+        db.insertInto("tags",
+                List.of("NAME", "CONTENT", "CREATOR"),
+                List.of("test_xmon312", "uwutest", "twujstary"));
+        ResultSet set = db.getConnection().prepareStatement("SELECT * from `tags`").executeQuery();
+        while (set.next()) {
+            System.out.println(set.getObject(1));
+        }
 
     }
 
