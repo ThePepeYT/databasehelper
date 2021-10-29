@@ -55,26 +55,21 @@ public class SQLStatement implements DatabaseConnection {
                 Logger.getLogger("There should be the same amount of values and column names");
             }
             final StringBuilder something = new StringBuilder();
-            for (int i = 0; i < into.size(); i++) {
-                if (i == into.size() -1){
-                    something.append("?");
-                }else{
-                    something.append("?, ");
-                }
-            }
+            into.forEach(x -> something.append("?,"));
             try {
                 preparedStatement(INSERT_INTO.replace("{TABLE}", table)
                         .replace("{INTO}", String.join(", ", into))
-                        .replace("{VALUES}", something.toString()), preparedStatement -> {
+                        .replace("{VALUES}", something.substring(0, something.length() - 1), preparedStatement -> {
                     try {
                         values.forEach(x -> {
                             System.out.println(x);
                             try {
                                 if(x instanceof String){
                                     preparedStatement.setString(values.indexOf(x) + 1, (String) x);
-                                }else if(x instanceof Integer){
+                                }
+                                if(x instanceof Integer){
                                     preparedStatement.setInt(values.indexOf(x) + 1, (Integer) x);
-                                } else{
+                                }else{
                                     preparedStatement.setObject(values.indexOf(x) + 1, x);
                                 }
                             } catch (SQLException e) {
