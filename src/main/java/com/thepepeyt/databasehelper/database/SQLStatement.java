@@ -35,9 +35,6 @@ public class SQLStatement implements DatabaseConnection {
     public void createTable(final String table, final List<String> string) throws SQLException {
         Executors.newCachedThreadPool().execute(() -> {
             try {
-                System.out.println(CREATE_TABLE.replace("{TABLE}", table).replace(
-                        "{COLUMNS}", string.stream().collect(Collectors
-                                .joining(", ", "", ""))));
                 preparedStatement(CREATE_TABLE.replace("{TABLE}", table).replace(
                         "{COLUMNS}", string.stream().collect(Collectors
                                 .joining(", ", "", ""))), preparedStatement -> {
@@ -84,9 +81,9 @@ public class SQLStatement implements DatabaseConnection {
                                 else{
                                     preparedStatement.setObject(values.indexOf(x) + 1, values.get(values
                                             .indexOf(x)));
-                                    
+
                                 }
-                                
+
 
                             } catch (SQLException e) {
                                 e.printStackTrace();
@@ -335,16 +332,16 @@ public class SQLStatement implements DatabaseConnection {
 
 
                 preparedStatement(DELETE
-                        .replace("{TABLE}", table) + " " + String.join(" AND ", where)
-                , preparedStatement -> {
-                    what.forEach(x -> {
-                        try {
-                            preparedStatement.setObject(what.indexOf(x) + 1, what.get(what
-                                    .indexOf(x)));
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    });
+                                .replace("{TABLE}", table) + " " + String.join(" AND ", where)
+                        , preparedStatement -> {
+                            what.forEach(x -> {
+                                try {
+                                    preparedStatement.setObject(what.indexOf(x) + 1, what.get(what
+                                            .indexOf(x)));
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                }
+                            });
                             try {
                                 preparedStatement.executeUpdate();
                             } catch (SQLException e) {
