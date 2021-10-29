@@ -139,6 +139,7 @@ public class SQLStatement implements DatabaseConnection {
 
 
             try {
+                System.out.println(SELECT_FROM.replace("{TABLE}", table) + String.join(" AND ", where));
                 preparedStatement(SELECT_FROM.replace("{TABLE}", table) + String.join(" AND ", where), preparedStatement -> {
                     try {
                         what.forEach(x -> {
