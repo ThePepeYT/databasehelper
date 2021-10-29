@@ -23,6 +23,8 @@ public class SQLStatement implements DatabaseConnection {
     static final String WHERE = "WHERE {WHAT} =? AND";
     private static final String EXISTS = "SELECT * FROM {TABLE}";
     private static final String LEADBOARD = "SELECT {VALUES} from {TABLE} ORDER BY {ORDER} DESC LIMIT {LIMIT}";
+	
+    private static final String DELETE = "DELETE FROM {TABLE}";
 
 
     protected Connection connection;
@@ -302,6 +304,42 @@ public class SQLStatement implements DatabaseConnection {
         });
 
         return completableFuture;
+    }
+
+    public void deleteFrom(String table, List<String> where, List<Object> what){
+        Executors.newCachedThreadPool().execute(() -> {
+ 
+            where.forEach(x -> where.set(where.indexOf(x), "WHERE " + x + " =?"));
+ 
+            try {
+ 
+ 
+ 
+ 
+                preparedStatement(DELETE
+                                .replace("{TABLE}", table) + " " + String.join(" AND ", where)
+                        , preparedStatement -> {
+                            what.forEach(x -> {
+                                try {
+                                    preparedStatement.setObject(what.indexOf(x) + 1, what.get(what
+                                            .indexOf(x)));
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                }
+                            });
+                            try {
+                                preparedStatement.executeUpdate();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        });
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+ 
+ 
+        });
+ 
     }
 
 
