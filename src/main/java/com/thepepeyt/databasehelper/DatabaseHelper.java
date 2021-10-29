@@ -15,30 +15,6 @@ import java.util.concurrent.ExecutionException;
 
 public class DatabaseHelper {
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-
-        var db = DatabaseHelper.mySQLBuilder()
-                .database("mysuperdatabase")
-                .port(3306)
-                .user("tescior")
-                .host("db4free.net")
-                .password("3ba33a97")
-                .build();
-
-        db.connect();
-        System.out.println("connected");
-
-        ///b.createTable("tags", List.of("NAME varchar(100)","CONTENT varchar(100)", "CREATOR varchar(100)"));
-        db.insertInto("tags",
-                List.of("NAME", "CONTENT", "CREATOR"),
-                List.of("test_xmon312", "uwutest", "twujstary"));
-        ResultSet set = db.getConnection().prepareStatement("SELECT * from `tags`").executeQuery();
-        while (set.next()) {
-            System.out.println(set.getObject(1));
-        }
-
-    }
-
 
 
 
