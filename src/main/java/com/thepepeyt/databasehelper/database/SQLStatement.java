@@ -60,7 +60,7 @@ public class SQLStatement implements DatabaseConnection {
             try {
                 preparedStatement(INSERT_INTO.replace("{TABLE}", table)
                         .replace("{INTO}", String.join(",", into) + "")
-                        .replace("{VALUES}", append.substring(0, append.length() - 1)), preparedStatement -> {
+                        .replace("{VALUES}", something.substring(0, something.length() - 1)), preparedStatement -> {
                     try {
                         values.forEach(x -> {
                             try {
