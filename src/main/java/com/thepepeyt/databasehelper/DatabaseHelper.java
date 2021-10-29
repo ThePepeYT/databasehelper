@@ -68,7 +68,7 @@ public class DatabaseHelper {
             return this;
         }
 
-        AbstractSQLDatabase build() {
+        public AbstractSQLDatabase build() {
             if (this.host.isEmpty()) {
                 throw new IllegalStateException("Host name cannot be empty");
             }
