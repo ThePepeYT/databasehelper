@@ -54,13 +54,12 @@ public class SQLStatement implements DatabaseConnection {
             if (into.size() != values.size()) {
                 Logger.getLogger("There should be the same amount of values and column names");
             }
-            StringBuilder something = new StringBuilder();
-            into.forEach(x -> something.append("?,"));
+            final String append = String.join("?, ", into);
 
             try {
                 preparedStatement(INSERT_INTO.replace("{TABLE}", table)
                         .replace("{INTO}", String.join(",", into) + "")
-                        .replace("{VALUES}", something.substring(0, something.length() - 1)), preparedStatement -> {
+                        .replace("{VALUES}", append.substring(0, append.length() - 1)), preparedStatement -> {
                     try {
                         values.forEach(x -> {
                             try {
