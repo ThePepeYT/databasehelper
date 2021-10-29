@@ -54,36 +54,29 @@ public class SQLStatement implements DatabaseConnection {
             if (into.size() != values.size()) {
                 Logger.getLogger("There should be the same amount of values and column names");
             }
-
-            StringBuilder something = new StringBuilder();
-            into.forEach(x -> something.append("?,"));
-
+            final StringBuilder something = new StringBuilder();
+            for (int i = 0; i < into.size(); i++) {
+                if (i == into.size() -1){
+                    something.append("?");
+                }else{
+                    something.append("?, ");
+                }
+            }
             try {
                 preparedStatement(INSERT_INTO.replace("{TABLE}", table)
-                        .replace("{INTO}", String.join(",", into) + "")
-                        .replace("{VALUES}", something.substring(0, something.length() - 1)), preparedStatement -> {
+                        .replace("{INTO}", String.join(", ", into))
+                        .replace("{VALUES}", something.toString()), preparedStatement -> {
                     try {
                         values.forEach(x -> {
+                            System.out.println(x);
                             try {
                                 if(x instanceof String){
-                                    preparedStatement.setString(values.indexOf(x) + 1, (String) values.get(values
-                                            .indexOf(x)));
+                                    preparedStatement.setString(values.indexOf(x) + 1, (String) x);
+                                }else if(x instanceof Integer){
+                                    preparedStatement.setInt(values.indexOf(x) + 1, (Integer) x);
+                                } else{
+                                    preparedStatement.setObject(values.indexOf(x) + 1, x);
                                 }
-                                if(x instanceof Integer){
-                                    preparedStatement.setInt(values.indexOf(x) + 1, (Integer) values.get(values
-                                            .indexOf(x)));
-                                }
-                                if(x instanceof Boolean){
-                                    preparedStatement.setBoolean(values.indexOf(x) + 1, Boolean.getBoolean(values.get(values
-                                            .indexOf(x)).toString()));
-                                }
-                                else{
-                                    preparedStatement.setObject(values.indexOf(x) + 1, values.get(values
-                                            .indexOf(x)));
-
-                                }
-
-
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
