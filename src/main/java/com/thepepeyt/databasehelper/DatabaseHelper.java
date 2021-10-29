@@ -14,15 +14,6 @@ import java.util.concurrent.ExecutionException;
 
 public class DatabaseHelper {
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-
-
-
-
-
-    }
-
-
 
 
 
