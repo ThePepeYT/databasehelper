@@ -121,23 +121,19 @@ public class SQLStatement implements DatabaseConnection {
 
 
     public CompletableFuture<Object> getColumn(final String table, final String column,
-                                               final List<String> where, final List<Object> what) throws SQLException {
-
-        final CompletableFuture<Object> completableFuture = new CompletableFuture<>();
+                            final List<String> where,
+                            final List<Object> what) throws SQLException {
+        CompletableFuture<Object> completableFuture = new CompletableFuture<>();
         Executors.newCachedThreadPool().submit(() -> {
             if (where.size() != what.size()) {
                 Logger.getLogger("There should be the same amount of values and column names");
             }
-
-
             where.forEach(x -> where.set(where.indexOf(x), "WHERE " + x + " =?"));
-
-
 
             try {
                 preparedStatement(SELECT_FROM.replace("{TABLE}", table) + String.join(" AND ", where), preparedStatement -> {
                     try {
-                        what.forEach(x -> {
+                        where.forEach(x -> {
                             try {
                                 preparedStatement.setObject(what.indexOf(x) + 1, what.get(what.indexOf(x)));
                             } catch (SQLException e) {
@@ -159,7 +155,6 @@ public class SQLStatement implements DatabaseConnection {
                 e.printStackTrace();
             }
         });
-
         return completableFuture;
     }
 
