@@ -67,10 +67,27 @@ public class SQLStatement implements DatabaseConnection {
                         .replace("{INTO}", into.stream().collect(Collectors.joining(",", "", "")) + "")
                         .replace("{VALUES}", something.substring(0, something.length() - 1)), preparedStatement -> {
                     try {
-                        into.forEach(x -> {
+                        values.forEach(x -> {
                             try {
-                                preparedStatement.setObject(into.indexOf(x) + 1, values.get(into
-                                        .indexOf(x)));
+                                if(x instanceof String){
+                                    preparedStatement.setString(values.indexOf(x) + 1, values.get(values
+                                            .indexOf(x)).toString());
+                                }
+                                if(x instanceof Integer){
+                                    preparedStatement.setInt(values.indexOf(x) + 1, (Integer) values.get(values
+                                            .indexOf(x)));
+                                }
+                                if(x instanceof Boolean){
+                                    preparedStatement.setBoolean(values.indexOf(x) + 1, Boolean.getBoolean(values.get(values
+                                            .indexOf(x)).toString()));
+                                }
+                                else{
+                                    preparedStatement.setObject(values.indexOf(x) + 1, values.get(values
+                                            .indexOf(x)));
+                                    
+                                }
+                                
+
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
