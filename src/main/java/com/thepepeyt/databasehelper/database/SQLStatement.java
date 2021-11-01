@@ -312,7 +312,8 @@ public class SQLStatement implements DatabaseConnection {
     public void deleteFrom(String table, List<String> where, List<Object> what){
         Executors.newCachedThreadPool().execute(() -> {
 
-            where.forEach(x -> where.set(where.indexOf(x), "WHERE " + x + " =?"));
+            List<String> newwhere = where.stream().map(n -> n.replace(n, "WHERE " + n + " =?"))
+                    .collect(Collectors.toList());
 
             try {
 
@@ -320,7 +321,7 @@ public class SQLStatement implements DatabaseConnection {
 
 
                 preparedStatement(DELETE
-                                .replace("{TABLE}", table) + " " + String.join(" AND ", where)
+                                .replace("{TABLE}", table) + " " + String.join(" AND ", newwhere)
                         , preparedStatement -> {
                             what.forEach(x -> {
                                 try {
