@@ -215,7 +215,7 @@ db.getLeadboard("player", 3, "MONEY", List.of("NAME", "LEVEL"))
       System.out.println(object.get());
      }
 });
-//It's gonna return [[Xmon, 3], [Xmon, 3], [Topfu, 2]]
+//It's gonna return [[Xmon, 3], [Topfu, 2], [ThePepeYT, 1]
 ```
 
 
