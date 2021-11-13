@@ -347,6 +347,20 @@ db.deleteKeys(List.of("xmon","thepepeyt","topfu"));
 //Deletes keys named xmon, thepepeyt, topfu
 ```
 
+## disconnect
+Disconnect your programm from database
+```java
+Redis db = DatabaseHelper.redisBuilder()
+   .host("localhost")
+   .timeout(600000000)
+   .port(6379)
+   .password("")
+   .build();
+
+db.disconnect();
+```
+
+
 
 
 
