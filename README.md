@@ -60,8 +60,19 @@ AbstractSQLDatabase db = DatabaseHelper.mariaDBBuilder()
   .build();
 ```
 
+# How to use with Redis?
+```java
+Redis redis = DatabaseHelper.redisBuilder()
+   .host("localhost")
+   .timeout(600000000)
+   .port(6379)
+   .password("")
+   .build();
+```
 
-# Methods
+
+# Methods SQL
+Methods that u use with SQL based db
 
 ## Connect
 Connect method just create connection of your program with database.
@@ -230,3 +241,9 @@ SQLite3 db = DatabaseHelper.sqLite3Builder()
   
 db.disconnect();
 ```
+
+# Methods Redis
+methods that u use with redis
+
+
+
