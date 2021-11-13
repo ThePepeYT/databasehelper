@@ -266,14 +266,88 @@ Redis db = DatabaseHelper.redisBuilder()
    .port(6379)
    .password("")
    .build();
-redis.setData(List.of("thepepeyt"), List.of("100"));
-redis.setData(List.of("xmon"), List.of("200"));
-redis.setData(List.of("topfu"), List.of("300"));
+db.setData(List.of("thepepeyt", "xmon", "topfu"), List.of("100", "200", "300"));
 //Creates 3 keys named thepepeyt, xmon, topfu with values 100, 200, 300
 //ADVANCED VERSION
-redis.setData(ADVxmon, List.of("100", UUID.randomUUID().toString()));
-redis.setData(ADVthepepeyt, List.of("200", UUID.randomUUID().toString()));
-redis.setData(ADVtopfu, List.of("300", UUID.randomUUID().toString()));
+db.setData(ADVxmon, List.of("100", UUID.randomUUID().toString()));
+db.setData(ADVthepepeyt, List.of("200", UUID.randomUUID().toString()));
+db.setData(ADVtopfu, List.of("300", UUID.randomUUID().toString()));
 //Creates 3 keys named thepepeyt, xmon, topfu with list of values
 ```
+
+## getData
+Gets data of key in dictionary
+```java
+Redis db = DatabaseHelper.redisBuilder()
+   .host("localhost")
+   .timeout(600000000)
+   .port(6379)
+   .password("")
+   .build();
+System.out.println(db.getData(List.of("thepepeyt", "xmon", "topfu")));
+//Its gonna return [100, 200, 300]
+System.out.println(db.getData("ADVxmon", 0, 1).toString());
+System.out.println(db.getData("ADVthepepeyt", 0, 1).toString());
+System.out.println(db.getData("ADVtopfu", 0, 1).toString());
+//Its gonna return list values from 0 to 1
+```
+## removeFrom
+the specified number of words is removed from the dictionary
+```java
+Redis db = DatabaseHelper.redisBuilder()
+   .host("localhost")
+   .timeout(600000000)
+   .port(6379)
+   .password("")
+   .build();
+db.removeFrom("ADVxmon", "100", 1);
+//Its gonna remove from ADVxmon list once value "100"
+```
+## Value/KeyExists
+Checks if Value or Key exists
+```java
+Redis db = DatabaseHelper.redisBuilder()
+   .host("localhost")
+   .timeout(600000000)
+   .port(6379)
+   .password("")
+   .build();
+
+db.KeyExists("xmon");
+//its gonna return true
+db.ValueExists("XmonADV", "yourmom");
+//its gonna return false because in XmonADV values there is no "yourmom"
+```
+## Keys/Values
+return all Keys or Values in key that exists
+```java
+Redis db = DatabaseHelper.redisBuilder()
+   .host("localhost")
+   .timeout(600000000)
+   .port(6379)
+   .password("")
+   .build();
+System.out.println(db.Keys());
+//returns [thepepeyt, topfu, xmon, ADVxmon, ADVthepepeyt, ADVtopfu]
+
+System.out.println(db.Values("ADVxmon"));
+//returns [08936071-ea62-47ef-8291-3573b8ad07b9, 100]
+```
+
+## deleteKeys
+Delete keys from database
+```java
+Redis db = DatabaseHelper.redisBuilder()
+   .host("localhost")
+   .timeout(600000000)
+   .port(6379)
+   .password("")
+   .build();
+db.deleteKeys(List.of("xmon","thepepeyt","topfu"));
+//Deletes keys named xmon, thepepeyt, topfu
+```
+
+
+
+
 
