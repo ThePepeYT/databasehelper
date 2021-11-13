@@ -62,7 +62,7 @@ AbstractSQLDatabase db = DatabaseHelper.mariaDBBuilder()
 
 # How to use with Redis?
 ```java
-Redis redis = DatabaseHelper.redisBuilder()
+Redis db = DatabaseHelper.redisBuilder()
    .host("localhost")
    .timeout(600000000)
    .port(6379)
@@ -245,5 +245,35 @@ db.disconnect();
 # Methods Redis
 methods that u use with redis
 
+## connect
+Connect your programm with database
+```java
+Redis db = DatabaseHelper.redisBuilder()
+   .host("localhost")
+   .timeout(600000000)
+   .port(6379)
+   .password("")
+   .build();
+db.connect();
+```
 
+## setData
+Sets data to key-value dictionary
+```java
+Redis db = DatabaseHelper.redisBuilder()
+   .host("localhost")
+   .timeout(600000000)
+   .port(6379)
+   .password("")
+   .build();
+redis.setData(List.of("thepepeyt"), List.of("100"));
+redis.setData(List.of("xmon"), List.of("200"));
+redis.setData(List.of("topfu"), List.of("300"));
+//Creates 3 keys named thepepeyt, xmon, topfu with values 100, 200, 300
+//ADVANCED VERSION
+redis.setData(ADVxmon, List.of("100", UUID.randomUUID().toString()));
+redis.setData(ADVthepepeyt, List.of("200", UUID.randomUUID().toString()));
+redis.setData(ADVtopfu, List.of("300", UUID.randomUUID().toString()));
+//Creates 3 keys named thepepeyt, xmon, topfu with list of values
+```
 
