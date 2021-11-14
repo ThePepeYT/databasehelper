@@ -12,7 +12,7 @@ Join discord [DISCORD](https://discord.gg/94hn6qpj)
 
 # Installation
 
-Get it on [JitPack](https://jitpack.io/#ThePepeYT/databasehelper/-SNAPSHOT)
+Get it on [JitPack](https://jitpack.io/#ThePepeYT/databasehelper)
 
 # How to use with Sqlite3?
 ```java
