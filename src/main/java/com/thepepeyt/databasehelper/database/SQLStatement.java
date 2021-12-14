@@ -402,12 +402,12 @@ public class SQLStatement implements DatabaseConnection {
                 preparedStatement(SQL, preparedStatement -> {
                     values.forEach(x -> {
                         try {
-                            if (x instanceof String) preparedStatement.setString(values.indexOf(x), (String) x);
-                            if (x instanceof Integer) preparedStatement.setInt(values.indexOf(x), (Integer) x);
-                            if (x instanceof Boolean) preparedStatement.setBoolean(values.indexOf(x), (Boolean) x);
-                            if (x instanceof Float) preparedStatement.setFloat(values.indexOf(x), (Float) x);
+                            if (x instanceof String) preparedStatement.setString(values.indexOf(x) + 1, (String) x);
+                            if (x instanceof Integer) preparedStatement.setInt(values.indexOf(x) + 1, (Integer) x);
+                            if (x instanceof Boolean) preparedStatement.setBoolean(values.indexOf(x) + 1, (Boolean) x);
+                            if (x instanceof Float) preparedStatement.setFloat(values.indexOf(x) + 1, (Float) x);
                             else {
-                                preparedStatement.setObject(values.indexOf(x), x);
+                                preparedStatement.setObject(values.indexOf(x) + 1, x);
                             }
 
                         } catch (SQLException e) {
@@ -438,12 +438,12 @@ public class SQLStatement implements DatabaseConnection {
                 preparedStatement(SQL, preparedStatement -> {
                     values.forEach(x -> {
                         try {
-                            if (x instanceof String) preparedStatement.setString(values.indexOf(x), (String) x);
-                            if (x instanceof Integer) preparedStatement.setInt(values.indexOf(x), (Integer) x);
-                            if (x instanceof Boolean) preparedStatement.setBoolean(values.indexOf(x), (Boolean) x);
-                            if (x instanceof Float) preparedStatement.setFloat(values.indexOf(x), (Float) x);
+                            if (x instanceof String) preparedStatement.setString(values.indexOf(x) + 1, (String) x);
+                            if (x instanceof Integer) preparedStatement.setInt(values.indexOf(x) + 1, (Integer) x);
+                            if (x instanceof Boolean) preparedStatement.setBoolean(values.indexOf(x) + 1, (Boolean) x);
+                            if (x instanceof Float) preparedStatement.setFloat(values.indexOf(x) + 1, (Float) x);
                             else {
-                                preparedStatement.setObject(values.indexOf(x), x);
+                                preparedStatement.setObject(values.indexOf(x) + 1, x);
                             }
 
                         } catch (SQLException e) {

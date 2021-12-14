@@ -6,11 +6,27 @@ import com.thepepeyt.databasehelper.database.type.*;
 
 
 import java.io.File;
-
-
+import java.sql.SQLException;
+import java.util.List;
 
 
 public class DatabaseHelper {
+    
+    public static void main(String[] args) throws SQLException {
+
+        SQLite3 DB = new SQLite3(new File("database.db"));
+
+        DB.connect();
+
+        DB.createTable("byznes", List.of("ID STRING", "MONEY INTEGER", "SEJF INTEGER", "NAZWA STRING", "ITEMY STRING"));
+
+
+
+        DB.CustomSQLVoid(
+                "INSERT INTO byznes (ID,MONEY,SEJF,NAZWA,ITEMY) VALUES (?,?,?,?,?)",
+                List.of("3434343", 0, 0, "siema", "arrow:0,ropa:0,najemnicy:0,companies:0"));
+
+    }
 
 
 
