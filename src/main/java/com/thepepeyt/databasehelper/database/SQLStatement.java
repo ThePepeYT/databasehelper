@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -26,6 +27,7 @@ public class SQLStatement implements DatabaseConnection {
     private static final String COLUMNS = "SELECT {VALUES} from {TABLE}";
 
 
+    private static final ExecutorService executor = Executors.newSingleThreadExecutor();
     protected Connection connection;
 
     public void setConnection(final Connection connection) {
@@ -52,7 +54,7 @@ public class SQLStatement implements DatabaseConnection {
 
     public void insertInto(final String table, final List<String> into,
                            List<Object> values) throws SQLException {
-        Executors.newCachedThreadPool().execute(() -> {
+        executor.execute(() -> {
             if (into.size() != values.size()) {
                 Logger.getLogger("There should be the same amount of values and column names");
             }
@@ -84,38 +86,53 @@ public class SQLStatement implements DatabaseConnection {
         });
     }
 
-    public CompletableFuture<Optional<Object>> getColumn(final String table, final String column) throws SQLException {
 
 
 
-        final CompletableFuture<Optional<Object>> completableFuture = new CompletableFuture<>();
-        Executors.newCachedThreadPool().submit(() -> {
+    public CompletableFuture<Optional<List<Object>>> getColumns(final String table, final List<String> columns,
+                                                                final List<String> where, final List<Object> what) throws SQLException {
 
-
+        final CompletableFuture<Optional<List<Object>>> completableFuture = new CompletableFuture<>();
+        executor.submit(() -> {
             try {
-                preparedStatement(SELECT_FROM.replace("{TABLE}", table),
-                        preparedStatement -> {
-                            try {
-                                ResultSet results = preparedStatement.executeQuery();
-                                if (results.next()) {
-                                    completableFuture.complete(Optional.of(results.getObject(column)));
+                List<String> newwhere = where.stream().map(n -> n.replace(n, "WHERE " + n + " =?"))
+                        .collect(Collectors.toList());
+
+
+                preparedStatement(COLUMNS
+                        .replace("{TABLE}", table)
+                        .replace("{VALUES}", columns.stream().collect(Collectors.joining(",", "", ""))) + " " + String.join(" AND ", newwhere), preparedStatement -> {
+                    what.forEach(x -> {
+                        try {
+                            preparedStatement.setObject(what.indexOf(x) + 1, what.get(what.indexOf(x)));
+                            ResultSet rs = preparedStatement.executeQuery();
+                            List<Object> objects = new ArrayList<>();
+                            columns.forEach(column -> {
+                                try {
+                                    objects.add(rs.getObject(column));
+                                } catch (SQLException e) {
+                                    completableFuture.complete(Optional.empty());
+                                    e.printStackTrace();
                                 }
-                            } catch (SQLException ex) {
-                                completableFuture.complete(Optional.empty());
-                                ex.printStackTrace();
+                            });
+                            completableFuture.complete(Optional.of(objects));
 
-                            }
-                        });
-            } catch (SQLException e) {
+                        } catch (SQLException e) {
+                            completableFuture.complete(Optional.empty());
+                            e.printStackTrace();
+                        }
+                    });
+
+                });
+            } catch (SQLException throwables) {
                 completableFuture.complete(Optional.empty());
-                e.printStackTrace();
+                throwables.printStackTrace();
             }
-
         });
+
+
         return completableFuture;
     }
-
-
 
 
 
@@ -123,7 +140,7 @@ public class SQLStatement implements DatabaseConnection {
                                                          final List<String> where, final List<Object> what) throws SQLException {
 
         final CompletableFuture<Optional<Object>> completableFuture = new CompletableFuture<>();
-        Executors.newCachedThreadPool().submit(() -> {
+        executor.submit(() -> {
 
 
 
@@ -165,7 +182,7 @@ public class SQLStatement implements DatabaseConnection {
 
     public void updateColumn(final String table, final String column,
                              final Object something) {
-        Executors.newCachedThreadPool().execute(() -> {
+        executor.execute(() -> {
             try {
                 preparedStatement(UPDATE_COLUMN.replace("{TABLE}", table).replace("{COLUMN}", column), preparedStatement -> {
                     try {
@@ -184,7 +201,7 @@ public class SQLStatement implements DatabaseConnection {
     public void updateColumn(final String table, final String column,
                              final List<String> where, final List<Object> what,
                              final Object something) throws SQLException {
-        Executors.newCachedThreadPool().execute(() -> {
+        executor.execute(() -> {
             if (where.size() != what.size()) {
                 Logger.getLogger("There should be the same amount of values and column names");
             }
@@ -221,7 +238,7 @@ public class SQLStatement implements DatabaseConnection {
 
     public CompletableFuture<Boolean> ifExists(final String table, final List<String> where, final List<Object> what) throws SQLException {
         final CompletableFuture<Boolean> completableFuture = new CompletableFuture<>();
-        Executors.newCachedThreadPool().submit(() -> {
+        executor.submit(() -> {
             if (where.size() != what.size()) {
                 Logger.getLogger("There should be the same amount of values and column names");
             }
@@ -269,7 +286,7 @@ public class SQLStatement implements DatabaseConnection {
 
     public CompletableFuture<Optional<List<List<Object>>>> getLeadboard(String table, int limit, String orderBY, List<String> into) throws SQLException {
         final CompletableFuture<Optional<List<List<Object>>>> completableFuture = new CompletableFuture<>();
-        Executors.newCachedThreadPool().submit(() -> {
+        executor.submit(() -> {
             List<List<Object>> list = new ArrayList<>();
 
 
@@ -311,12 +328,13 @@ public class SQLStatement implements DatabaseConnection {
     }
 
     public void deleteFrom(String table, List<String> where, List<Object> what){
-        Executors.newCachedThreadPool().execute(() -> {
+        executor.execute(() -> {
 
             where.forEach(x -> where.set(where.indexOf(x), "WHERE " + x + " =?"));
 
             try {
 
+                System.out.println();
 
 
 
