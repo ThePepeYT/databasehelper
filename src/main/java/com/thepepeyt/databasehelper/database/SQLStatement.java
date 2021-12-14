@@ -395,6 +395,79 @@ public class SQLStatement implements DatabaseConnection {
         }
     }
 
+
+    public void CustomSQLVoid(String SQL, List<Object> values) throws SQLException {
+        executor.execute(() -> {
+            try {
+                preparedStatement(SQL, preparedStatement -> {
+                    values.forEach(x -> {
+                        try {
+                            if (x instanceof String) preparedStatement.setString(values.indexOf(x), (String) x);
+                            if (x instanceof Integer) preparedStatement.setInt(values.indexOf(x), (Integer) x);
+                            if (x instanceof Boolean) preparedStatement.setBoolean(values.indexOf(x), (Boolean) x);
+                            if (x instanceof Float) preparedStatement.setFloat(values.indexOf(x), (Float) x);
+                            else {
+                                preparedStatement.setObject(values.indexOf(x), x);
+                            }
+
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+                    try {
+                        preparedStatement.executeUpdate();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                });
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+
+
+    public CompletableFuture<Optional<ResultSet>> getResultSet(String SQL, List<Object> values) throws SQLException {
+
+        CompletableFuture<Optional<ResultSet>> completableFuture = new CompletableFuture<>();
+        executor.submit(() -> {
+            try {
+                preparedStatement(SQL, preparedStatement -> {
+                    values.forEach(x -> {
+                        try {
+                            if (x instanceof String) preparedStatement.setString(values.indexOf(x), (String) x);
+                            if (x instanceof Integer) preparedStatement.setInt(values.indexOf(x), (Integer) x);
+                            if (x instanceof Boolean) preparedStatement.setBoolean(values.indexOf(x), (Boolean) x);
+                            if (x instanceof Float) preparedStatement.setFloat(values.indexOf(x), (Float) x);
+                            else {
+                                preparedStatement.setObject(values.indexOf(x), x);
+                            }
+
+                        } catch (SQLException e) {
+                            completableFuture.complete(Optional.empty());
+                            e.printStackTrace();
+                        }
+                    });
+
+                    try {
+                        completableFuture.complete(Optional.of(preparedStatement.executeQuery()));
+                    } catch (SQLException e) {
+                        completableFuture.complete(Optional.empty());
+                        e.printStackTrace();
+                    }
+
+                });
+            } catch (SQLException e) {
+                completableFuture.complete(Optional.empty());
+                e.printStackTrace();
+            }
+        });
+        return completableFuture;
+    }
+
     public Connection getConnection() {
         return connection;
     }
