@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.thepepeyt.databasehelper</groupId>
+    <artifactId>databasehelper</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub ThePepeYT Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/ThePepeYT/databasehelper</url>
+        </repository>
+    </distributionManagement>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.36.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.pgjdbc.pgjdbc</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>v42.3.0-rc5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>2.7.4</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.27</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.8.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.oracle.ojdbc</groupId>
+            <artifactId>ojdbc10</artifactId>
+            <version>19.3.0.0</version>
+        </dependency>
+
+
+    </dependencies>
+
+</project>
