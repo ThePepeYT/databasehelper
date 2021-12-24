@@ -408,7 +408,7 @@ public class SQLStatement implements DatabaseConnection {
                                 if (x instanceof Boolean) preparedStatement.setBoolean(i, (Boolean) x);
                                 if (x instanceof Float) preparedStatement.setFloat(i, (Float) x);
                                 else {
-                                    preparedStatement.setObject(values.indexOf(x) + 1, x);
+                                    preparedStatement.setObject(i, x);
                                 }
 
                             } catch (SQLException e) {
@@ -445,7 +445,7 @@ public class SQLStatement implements DatabaseConnection {
                             if (x instanceof Boolean) preparedStatement.setBoolean(i, (Boolean) x);
                             if (x instanceof Float) preparedStatement.setFloat(i, (Float) x);
                             else {
-                                preparedStatement.setObject(values.indexOf(x) + 1, x);
+                                preparedStatement.setObject(i, x);
                             }
 
                         } catch (SQLException e) {
