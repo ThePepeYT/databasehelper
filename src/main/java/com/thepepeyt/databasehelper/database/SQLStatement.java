@@ -400,8 +400,8 @@ public class SQLStatement implements DatabaseConnection {
         executor.execute(() -> {
             try {
                 preparedStatement(SQL, preparedStatement -> {
-                        for(int i=0; i<values.size();i++) {
-                            Object x = values.get(i);
+                        for(int i=1; i<values.size();i++) {
+                            Object x = values.get(i-1);
                             try {
                                 if (x instanceof String) preparedStatement.setString(i, (String) x);
                                 if (x instanceof Integer) preparedStatement.setInt(i, (Integer) x);
@@ -437,8 +437,8 @@ public class SQLStatement implements DatabaseConnection {
         executor.submit(() -> {
             try {
                 preparedStatement(SQL, preparedStatement -> {
-                    for(int i=0; i<values.size();i++) {
-                        Object x = values.get(i);
+                    for(int i=1; i<values.size();i++) {
+                        Object x = values.get(i-1);
                         try {
                             if (x instanceof String) preparedStatement.setString(i, (String) x);
                             if (x instanceof Integer) preparedStatement.setInt(i, (Integer) x);
