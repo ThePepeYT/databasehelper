@@ -400,20 +400,21 @@ public class SQLStatement implements DatabaseConnection {
         executor.execute(() -> {
             try {
                 preparedStatement(SQL, preparedStatement -> {
-                    values.forEach(x -> {
-                        try {
-                            if (x instanceof String) preparedStatement.setString(values.indexOf(x) + 1, (String) x);
-                            if (x instanceof Integer) preparedStatement.setInt(values.indexOf(x) + 1, (Integer) x);
-                            if (x instanceof Boolean) preparedStatement.setBoolean(values.indexOf(x) + 1, (Boolean) x);
-                            if (x instanceof Float) preparedStatement.setFloat(values.indexOf(x) + 1, (Float) x);
-                            else {
-                                preparedStatement.setObject(values.indexOf(x) + 1, x);
-                            }
+                        for(int i=0; i<values.size();i++) {
+                            Object x = values.get(i);
+                            try {
+                                if (x instanceof String) preparedStatement.setString(i, (String) x);
+                                if (x instanceof Integer) preparedStatement.setInt(i, (Integer) x);
+                                if (x instanceof Boolean) preparedStatement.setBoolean(i, (Boolean) x);
+                                if (x instanceof Float) preparedStatement.setFloat(i, (Float) x);
+                                else {
+                                    preparedStatement.setObject(values.indexOf(x) + 1, x);
+                                }
 
-                        } catch (SQLException e) {
-                            e.printStackTrace();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    });
 
                     try {
                         preparedStatement.executeUpdate();
@@ -436,12 +437,13 @@ public class SQLStatement implements DatabaseConnection {
         executor.submit(() -> {
             try {
                 preparedStatement(SQL, preparedStatement -> {
-                    values.forEach(x -> {
+                    for(int i=0; i<values.size();i++) {
+                        Object x = values.get(i);
                         try {
-                            if (x instanceof String) preparedStatement.setString(values.indexOf(x) + 1, (String) x);
-                            if (x instanceof Integer) preparedStatement.setInt(values.indexOf(x) + 1, (Integer) x);
-                            if (x instanceof Boolean) preparedStatement.setBoolean(values.indexOf(x) + 1, (Boolean) x);
-                            if (x instanceof Float) preparedStatement.setFloat(values.indexOf(x) + 1, (Float) x);
+                            if (x instanceof String) preparedStatement.setString(i, (String) x);
+                            if (x instanceof Integer) preparedStatement.setInt(i, (Integer) x);
+                            if (x instanceof Boolean) preparedStatement.setBoolean(i, (Boolean) x);
+                            if (x instanceof Float) preparedStatement.setFloat(i, (Float) x);
                             else {
                                 preparedStatement.setObject(values.indexOf(x) + 1, x);
                             }
@@ -450,7 +452,7 @@ public class SQLStatement implements DatabaseConnection {
                             completableFuture.complete(Optional.empty());
                             e.printStackTrace();
                         }
-                    });
+                    }
 
                     try {
                         completableFuture.complete(Optional.of(preparedStatement.executeQuery()));
