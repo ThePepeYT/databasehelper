@@ -397,10 +397,8 @@ public class SQLStatement implements DatabaseConnection {
         executor.execute(() -> {
             try {
                 preparedStatement(SQL, preparedStatement -> {
-                    System.out.println(values.size());
                         for(int i=0; i<values.size();i++) {
                             Object x = values.get(i);
-                            System.out.println(x);
                             try {
                                 if (x instanceof String) preparedStatement.setString(i + 1, (String) x);
                                 else if (x instanceof Integer) preparedStatement.setInt(i + 1, (Integer) x);
