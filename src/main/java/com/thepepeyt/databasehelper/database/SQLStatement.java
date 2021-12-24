@@ -334,9 +334,6 @@ public class SQLStatement implements DatabaseConnection {
 
             try {
 
-                System.out.println();
-
-
 
                 preparedStatement(DELETE
                                 .replace("{TABLE}", table) + " " + String.join(" AND ", where)
@@ -457,7 +454,7 @@ public class SQLStatement implements DatabaseConnection {
                     }
 
                     try {
-                        completableFuture.complete(Optional.of(preparedStatement.executeQuery()));
+                        completableFuture.complete(Optional.of(preparedStatement.getResultSet()));
                     } catch (SQLException e) {
                         completableFuture.complete(Optional.empty());
                         e.printStackTrace();
