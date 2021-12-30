@@ -4,14 +4,12 @@ import com.thepepeyt.databasehelper.database.AbstractSQLDatabase;
 import com.thepepeyt.databasehelper.database.type.*;
 
 
-
 import java.io.File;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 
 public class DatabaseHelper {
+
 
 
 
@@ -20,9 +18,7 @@ public class DatabaseHelper {
         return new MySQLBuilder();
     }
 
-    public static RedisBuilder redisBuilder() {
-        return new RedisBuilder();
-    }
+
 
     public static MariaDBBuilder mariaDBBuilder() {
         return new MariaDBBuilder();
@@ -129,40 +125,6 @@ public class DatabaseHelper {
         }
     }
 
-    public static final class RedisBuilder {
-        private String host;
-        private int port = 6379;
-        private int timeout = 1000;
-        private String password = "no";
-
-        public RedisBuilder host(String host) {
-            this.host = host;
-            return this;
-        }
-
-        public RedisBuilder port(int port) {
-            this.port = port;
-            return this;
-        }
-
-        public RedisBuilder timeout(int port) {
-            this.timeout = timeout;
-            return this;
-        }
-
-        public RedisBuilder password(String password) {
-            this.password = password;
-            return this;
-        }
-
-
-        public Redis build() {
-            if (host.isEmpty()) {
-                throw new IllegalStateException("Host cannot be empty");
-            }
-            return new Redis(host, port, password, timeout);
-        }
-    }
 
 }
 

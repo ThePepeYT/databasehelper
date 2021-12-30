@@ -1,0 +1,191 @@
+package com.thepepeyt.databasehelper.database.Objects.row;
+
+import com.thepepeyt.databasehelper.Utils.ObservableType;
+import com.thepepeyt.databasehelper.database.SQLStatement;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class getData{
+
+    SQLStatement SQL;
+
+
+
+    private ObservableType<String> TABLE = new ObservableType<>();
+
+    private ObservableType<String> COLUMNS = new ObservableType<>();
+
+    private ObservableType<String> IDENTIFIERS = new ObservableType<>();
+
+    private ObservableType<Object> VALUES = new ObservableType<>();
+
+    private ObservableType<String> ORDER = new ObservableType<>();
+
+
+
+
+    public getData(SQLStatement sql) {
+        this.SQL = sql;
+    }
+
+    public getData table(String table){
+        TABLE.setData(table);
+        return this;
+    }
+
+    public getData columns(String... args){
+        COLUMNS.addValue(args);
+        return this;
+    }
+
+    public getData orderby(String... args){
+        ORDER.addValue(args);
+        return this;
+    }
+
+    public getData where(String identifier, Float value){
+        IDENTIFIERS.addValue(identifier);
+        VALUES.addValue(value);
+        return this;
+    }
+
+    public getData where(String identifier, String value){
+        IDENTIFIERS.addValue(identifier);
+        VALUES.addValue(value);
+        return this;
+    }
+
+    public getData where(String identifier, Integer value){
+        IDENTIFIERS.addValue(identifier);
+        VALUES.addValue(value);
+        return this;
+    }
+
+    public getData where(String identifier, Long value){
+        IDENTIFIERS.addValue(identifier);
+        VALUES.addValue(value);
+        return this;
+    }
+
+    public getData where(String identifier, Boolean value){
+        IDENTIFIERS.addValue(identifier);
+        VALUES.addValue(value);
+        return this;
+    }
+
+    public getData where(String identifier, Double value){
+        IDENTIFIERS.addValue(identifier);
+        VALUES.addValue(value);
+        return this;
+    }
+
+
+    public ObservableType<String> getSQLFormula() {
+
+        ObservableType<String> QUERY = new ObservableType<>();
+
+
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        IDENTIFIERS.getObservable().toList().subscribe(IDENTIFIER -> {
+            COLUMNS.getObservable().toList().subscribe(SELECTOR -> {
+                if(SELECTOR.isEmpty()) throw new IllegalStateException("Database Columns cannot be empty");
+                ORDER.getObservable().toList().subscribe(ORDERBY -> {
+                    TABLE.getObservable().subscribe(table -> {
+                        if(table == null) throw new IllegalStateException("Database Table cannot be empty");
+                        stringBuilder.append(SQL.SELECT_FROM
+                                .replace("{TABLE}", table)
+                                .replace("{VALUES}", SELECTOR.stream().collect(Collectors.joining(",", "", ""))));
+                        if(!IDENTIFIER.isEmpty()) {
+                            stringBuilder.append(IDENTIFIER.stream().map(n -> n.replace(n, "WHERE " + n + " =?"))
+                                    .collect(Collectors.joining(",")));
+                        }
+                        if(!ORDERBY.isEmpty()){
+                            stringBuilder.append(" " + ORDERBY.stream().collect(Collectors.joining(",", "", "")));
+                        }
+                    });
+                });
+            });
+        });
+
+        QUERY.setData(stringBuilder.toString());
+
+        return QUERY;
+    }
+
+
+
+    public ObservableType<Object> completeAsync(){
+        ObservableType<Object> observableType = new ObservableType<>();
+        getSQLFormula().getObservable().subscribe(FORMULA -> {
+            SQL.preparedStatement(FORMULA, preparedStatement -> {
+                IDENTIFIERS.getObservable().toList().subscribe(x -> {
+                    COLUMNS.getObservable().toList().subscribe(list -> {
+
+                        if (x.isEmpty()) {
+                            ResultSet rs = preparedStatement.executeQuery();
+                            while(rs.next()) {
+                                list.forEach(y -> {
+                                    try {
+                                            observableType.addValue(rs.getObject(y));
+                                            return;
+                                    } catch (SQLException e) {
+                                        e.printStackTrace();
+                                    }
+                                });
+                            }
+                        } else {
+                            VALUES.getObservable().toList().subscribe(values -> {
+
+                                for (int i = 0; i < values.size(); i++) {
+                                    Object object = values.get(i);
+                                    if (object instanceof String)
+                                        preparedStatement.setString(i + 1, (String) object);
+                                    else if (object instanceof Integer)
+                                        preparedStatement.setInt(i + 1, (Integer) object);
+                                    else if (object instanceof Boolean)
+                                        preparedStatement.setBoolean(i + 1, (Boolean) object);
+                                    else if (object instanceof Float)
+                                        preparedStatement.setFloat(i + 1, (Float) object);
+                                    else {
+                                        preparedStatement.setObject(i + 1, object);
+
+                                    }
+                                }
+                                ResultSet rs = preparedStatement.executeQuery();
+
+                                while(rs.next()) {
+                                    list.forEach(y -> {
+                                        try {
+                                            observableType.addValue(rs.getObject(y));
+
+                                        } catch (SQLException e) {
+                                            e.printStackTrace();
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+        });
+
+            return observableType;
+        }
+
+
+    public List<Object> complete(){
+        return completeAsync().getObservable().toList().blockingGet();
+    }
+
+
+
+
+
+
+}
