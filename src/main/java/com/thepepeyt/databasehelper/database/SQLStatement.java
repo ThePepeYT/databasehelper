@@ -2,10 +2,7 @@ package com.thepepeyt.databasehelper.database;
 
 import com.thepepeyt.databasehelper.database.Objects.column.addColumn;
 import com.thepepeyt.databasehelper.database.Objects.column.deleteColumn;
-import com.thepepeyt.databasehelper.database.Objects.row.deleteData;
-import com.thepepeyt.databasehelper.database.Objects.row.getData;
-import com.thepepeyt.databasehelper.database.Objects.row.insertData;
-import com.thepepeyt.databasehelper.database.Objects.row.updateData;
+import com.thepepeyt.databasehelper.database.Objects.row.*;
 import com.thepepeyt.databasehelper.database.Objects.table.createTable;
 
 import java.sql.Connection;
@@ -15,9 +12,10 @@ import java.util.function.Consumer;
 
 public class SQLStatement implements DatabaseConnection {
 
-    ///ROWS
+    ///TABLE
     public final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS " +
             "{TABLE} ({COLUMNS})";
+    ///ROWS
     public final String INSERT_INTO = "INSERT INTO {TABLE} ({INTO}) " +
             "VALUES ({VALUES})";
     public final String UPDATE_COLUMN = "UPDATE {TABLE} SET {COLUMNS}";
@@ -80,6 +78,7 @@ public class SQLStatement implements DatabaseConnection {
         return new updateData(this);
     }
     public deleteData deleteData() { return new deleteData(this);}
+    public checkData checkData() { return new checkData(this);}
     ///TABLE
     public createTable createTable() {return new createTable(this);}
     ///COLUMNS

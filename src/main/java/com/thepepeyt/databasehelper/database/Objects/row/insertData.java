@@ -2,6 +2,7 @@ package com.thepepeyt.databasehelper.database.Objects.row;
 
 import com.thepepeyt.databasehelper.Utils.ObservableType;
 import com.thepepeyt.databasehelper.database.SQLStatement;
+import io.reactivex.rxjava3.core.Observable;
 
 import java.sql.SQLException;
 import java.util.stream.Collectors;
@@ -28,25 +29,8 @@ public class insertData {
         return this;
     }
 
-    public insertData insert(String column, int value){
-        COLUMNS.addValue(column);
-        VALUES.addValue(value);
-        return this;
-    }
 
-    public insertData insert(String column, String value){
-        COLUMNS.addValue(column);
-        VALUES.addValue(value);
-        return this;
-    }
-
-    public insertData insert(String column, Long value){
-        COLUMNS.addValue(column);
-        VALUES.addValue(value);
-        return this;
-    }
-
-    public insertData insert(String column, Float value){
+    public insertData insert(String column, Object value){
         COLUMNS.addValue(column);
         VALUES.addValue(value);
         return this;
@@ -56,7 +40,7 @@ public class insertData {
 
 
 
-    public ObservableType<String> getSQLFormula() {
+    public Observable<String> getSQLFormula() {
 
         ObservableType<String> QUERY = new ObservableType<>();
 
@@ -92,12 +76,12 @@ public class insertData {
 
         QUERY.setData(stringBuilder.toString());
 
-        return QUERY;
+        return QUERY.getObservable();
     }
 
 
     public void executeAsync(){
-        getSQLFormula().getObservable().subscribe(formula -> {
+        getSQLFormula().subscribe(formula -> {
             VALUES.getObservable().toList().subscribe(values -> {
                 SQL.preparedStatement(formula, preparedStatement -> {
                     try {
@@ -127,20 +111,33 @@ public class insertData {
     }
 
     public void execute() throws SQLException {
-        SQL.preparedStatement(getSQLFormula().getObservable().blockingFirst(), preparedStatement -> {
+        SQL.preparedStatement(getSQLFormula().blockingFirst(), preparedStatement -> {
             var values = VALUES.getObservable().toList().blockingGet();
             try {
                 for (int i = 0; i < values.size(); i++) {
                     Object object = values.get(i);
-
-                    if (object instanceof String) preparedStatement.setString(i + 1, (String) object);
-                    else if (object instanceof Integer) preparedStatement.setInt(i + 1, (Integer) object);
-                    else if (object instanceof Boolean) preparedStatement.setBoolean(i + 1, (Boolean) object);
-                    else if (object instanceof Float) preparedStatement.setFloat(i + 1, (Float) object);
-                    else {
-
-                        preparedStatement.setObject(i + 1, object);
+                    switch(object.getClass().getCanonicalName()){
+                        case "java.lang.String":
+                            preparedStatement.setString(i + 1, (String) object);
+                            break;
+                        case "java.lang.Integer":
+                            preparedStatement.setInt(i+1, (Integer) object);
+                            break;
+                        case "java.lang.Boolean":
+                            preparedStatement.setBoolean(i+1, (Boolean) object);
+                            break;
+                        case "java.lang.Double":
+                            preparedStatement.setDouble(i+1, (Double) object);
+                            break;
+                        case "java.lang.Float":
+                            preparedStatement.setFloat(i+1, (Float) object);
+                            break;
+                        default:
+                            preparedStatement.setObject(i + 1, object);
+                            break;
                     }
+
+
 
                 }
 

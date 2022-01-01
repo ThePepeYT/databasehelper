@@ -34,7 +34,7 @@ public class addColumn {
         return this;
     }
 
-    public ObservableType<String> getSQLFormula(){
+    public Observable<String> getSQLFormula(){
         ObservableType<String> observableType = new ObservableType<>();
 
         TABLE.getObservable().subscribe(table -> {
@@ -44,11 +44,11 @@ public class addColumn {
             });
 
         });
-        return observableType;
+        return observableType.getObservable();
     }
 
     public void completeAsync(){
-        getSQLFormula().getObservable().subscribe(formula -> {
+        getSQLFormula().subscribe(formula -> {
             SQL.preparedStatement(formula, preparedStatement -> {
                 try {
                     preparedStatement.executeUpdate();
@@ -61,7 +61,7 @@ public class addColumn {
     }
 
     public void complete() throws SQLException {
-        SQL.preparedStatement(getSQLFormula().getObservable().blockingFirst(), preparedStatement -> {
+        SQL.preparedStatement(getSQLFormula().blockingFirst(), preparedStatement -> {
             try {
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {

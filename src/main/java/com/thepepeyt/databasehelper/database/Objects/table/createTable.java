@@ -3,15 +3,16 @@ package com.thepepeyt.databasehelper.database.Objects.table;
 import com.thepepeyt.databasehelper.Utils.DatabaseExceptions;
 import com.thepepeyt.databasehelper.Utils.ObservableType;
 import com.thepepeyt.databasehelper.database.SQLStatement;
+import io.reactivex.rxjava3.core.Observable;
 
 import java.sql.SQLException;
 import java.util.stream.Collectors;
 
 public class createTable {
 
-    SQLStatement SQL;
-    ObservableType<String> TABLE = new ObservableType<>();
-    ObservableType<String> COLUMNS = new ObservableType<>();
+    private SQLStatement SQL;
+    private ObservableType<String> TABLE = new ObservableType<>();
+    private ObservableType<String> COLUMNS = new ObservableType<>();
 
     public createTable(SQLStatement SQL){
         this.SQL = SQL;
@@ -29,7 +30,7 @@ public class createTable {
         return this;
     }
 
-    public ObservableType<String> getSQLFormula(){
+    public Observable<String> getSQLFormula(){
         ObservableType<String> observableType = new ObservableType<>();
         TABLE.getObservable().subscribe(table -> {
             if(TABLE == null) throw new DatabaseExceptions("Table cannot be empty");
@@ -41,11 +42,11 @@ public class createTable {
             });
 
         });
-        return observableType;
+        return observableType.getObservable();
     }
 
     public void executeAsync(){
-        getSQLFormula().getObservable().subscribe(formula -> {
+        getSQLFormula().subscribe(formula -> {
             SQL.preparedStatement(formula, preparedStatement -> {
                 try {
                     preparedStatement.executeUpdate();
@@ -58,8 +59,7 @@ public class createTable {
 
     public void execute(){
         try {
-        var formula = getSQLFormula().getObservable().blockingFirst();
-            SQL.preparedStatement(formula, preparedStatement -> {
+            SQL.preparedStatement(getSQLFormula().blockingSingle(), preparedStatement -> {
                 try {
                     preparedStatement.executeUpdate();
                 } catch (SQLException e) {

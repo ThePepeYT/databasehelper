@@ -3,6 +3,7 @@ package com.thepepeyt.databasehelper.database.Objects.column;
 import com.thepepeyt.databasehelper.Utils.DatabaseExceptions;
 import com.thepepeyt.databasehelper.Utils.ObservableType;
 import com.thepepeyt.databasehelper.database.SQLStatement;
+import io.reactivex.rxjava3.core.Observable;
 
 import java.sql.SQLException;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class deleteColumn {
         return this;
     }
 
-    public ObservableType<String> getSQLFormula(){
+    public Observable<String> getSQLFormula(){
         ObservableType<String> observableType = new ObservableType<>();
 
         TABLE.getObservable().subscribe(table -> {
@@ -41,11 +42,11 @@ public class deleteColumn {
             });
 
         });
-        return observableType;
+        return observableType.getObservable();
     }
 
     public void completeAsync(){
-        getSQLFormula().getObservable().subscribe(formula -> {
+        getSQLFormula().subscribe(formula -> {
             SQL.preparedStatement(formula, preparedStatement -> {
                 try {
                     preparedStatement.executeUpdate();
@@ -58,7 +59,7 @@ public class deleteColumn {
     }
 
     public void complete() throws SQLException {
-        SQL.preparedStatement(getSQLFormula().getObservable().blockingFirst(), preparedStatement -> {
+        SQL.preparedStatement(getSQLFormula().blockingFirst(), preparedStatement -> {
             try {
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
