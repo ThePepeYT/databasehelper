@@ -12,3 +12,11 @@
 # 🔩 Installation
 ### Get it on jitpack [DatabaseHelper](https://jitpack.io/#ThePepeYT/databasehelper)
 
+# 📦 Packages
+<h3>The packages that the library uses are:
+- SQLite3 driver
+- MySQL driver
+- MariaDB driver
+- PostegreSQL driver
+</h3>
+
