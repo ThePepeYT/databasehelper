@@ -15,7 +15,7 @@
 # 📙Examples
 
 ### Connect
-<h5>Creates connection beetwen your code and database</h5>
+<h4>Creates connection beetwen your code and database</h4>
 ```java
         SQLite3 DB = new SQLite3(new File("database.db"));
 
