@@ -26,7 +26,7 @@
 </h3>
 
 # 🚀 Others
-## If you have any problems join this discord [Support](https://discord.gg/A4XZFze8WU) or you can contact me on Discord: ThePepeYT#1139.
+### If you have any problems join this discord [Support](https://discord.gg/A4XZFze8WU) or you can contact me on Discord: ThePepeYT#1139.
 <br>
 
 
