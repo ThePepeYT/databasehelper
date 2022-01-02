@@ -26,6 +26,7 @@ db.connect();
 ```
 
 ### Disconnect
+<h4>Disconnects code from the database</h4>
 
 ```java
 SQLite3 db = DatabaseHelper.sqLite3Builder()
@@ -37,6 +38,17 @@ db.disconnect();
 
 
 ## Rows
+
+### InsertData
+<h4>Insert data to table</h4>
+
+```java
+SQLite3 db = new SQLite3(new File("database.db"));
+
+db.connect();
+
+//Inserts into "mycolumn" value "myvalue" in table "mytable"
+db.insertData().table("mytable").insert("mycolumn", "myvalue").executeAsync();
 
 ## Tables
 
