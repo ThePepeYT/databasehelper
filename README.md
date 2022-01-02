@@ -1,5 +1,5 @@
 <div align="center">
-    <a href="https://github.com/ThePepeYT/databasehelper/"><img src="https://e7.pngegg.com/pngimages/81/163/png-clipart-computer-icons-database-data-quality-configuration-data-big-data.png" alt="databaseimg" height="128" style="border-radius: 50%"></a>
+    <a href="https://github.com/ThePepeYT/databasehelper/"><img src="https://i.xmon.eu.org/361c0c" alt="databaseimg" height="128" style="border-radius: 50%"></a>
     <div>
         <h1><strongDatabaseHelper</strong></h1>
     </div>
