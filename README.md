@@ -13,6 +13,16 @@
 ### Get it on jitpack [DatabaseHelper](https://jitpack.io/#ThePepeYT/databasehelper)
 
 # 📙Examples
+
+### Connect
+<h5>Creates connection beetwen your code and database</h5>
+```java
+        SQLite3 DB = new SQLite3(new File("database.db"));
+
+        DB.connect();
+```
+
+
 ## Rows
 
 ## Tables
