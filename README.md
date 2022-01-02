@@ -30,4 +30,6 @@
 
 
 ## **Thanks to:**
-[Xmonpl](https://github.com/xmonpl) for all help with Rxjava</h4>
+[Xmonpl](https://github.com/xmonpl) for all help with Rxjava
+<br>
+[dan1st#7327](https://github.com/danthe1st) for all help with small fixes</h4>
