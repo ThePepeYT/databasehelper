@@ -14,9 +14,11 @@
 
 # 📦 Packages
 <h3>The packages that the library uses are:
+<br>
 - SQLite3 driver
 - MySQL driver
 - MariaDB driver
 - PostegreSQL driver
+</br>
 </h3>
 
