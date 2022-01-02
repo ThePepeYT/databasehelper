@@ -17,7 +17,9 @@
 ### Connect
 <h4>Creates connection beetwen your code and database</h4>
 ```java
-e
+SQLite3 DB = new SQLite3(new File("database.db"));
+
+DB.connect();
 ```
 
 
