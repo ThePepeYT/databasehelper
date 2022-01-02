@@ -17,9 +17,10 @@
 ### Connect
 <h4>Creates connection beetwen your code and database</h4>
 ```java
-SQLite3 DB = new SQLite3(new File("database.db"));
-
-DB.connect();
+File file = new File("database.db");
+SQLite3 db = DatabaseHelper.sqLite3Builder()
+  .file(file)
+  .build();
 ```
 
 
