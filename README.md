@@ -32,6 +32,7 @@ db.connect();
 SQLite3 db = DatabaseHelper.sqLite3Builder()
   .file(new File("database.db"))
   .build();
+
 db.disconnect();
 ```
 
@@ -43,7 +44,9 @@ db.disconnect();
 
 ```java
 SQLite3 db = new SQLite3(new File("database.db"));
+
 db.connect();
+
 //Inserts into "mycolumn" value "myvalue" in table "mytable"
 db.insertData().table("mytable").insert("mycolumn", "myvalue").executeAsync();
 ```
@@ -52,11 +55,14 @@ db.insertData().table("mytable").insert("mycolumn", "myvalue").executeAsync();
 
 ```java
 SQLite3 db = new SQLite3(new File("database.db"));
+
 db.connect();
+
 //Gets data "PLAYERNAME" and "PLAYERMONEY" where "PLAYERID" is "SOMEID" and print list of it
 var data = db.getData().table("TABLE")
   .columns("PLAYERNAME", "PLAYERMONEY")
   .where("PLAYERID", "SOMEID").completeAsync();
+
 data.subscribe(System.out::println);
 ```
 
@@ -65,7 +71,9 @@ data.subscribe(System.out::println);
 
 ```java
 SQLite3 db = new SQLite3(new File("database.db"));
+
 db.connect();
+
 //Updates "MYCOLUMN" by value "myvalue" in table "TABLE"
 db.updateData().table("TABLE").column("MYCOLUMN", "myvalue").executeAsync();
 ```
@@ -75,6 +83,7 @@ db.updateData().table("TABLE").column("MYCOLUMN", "myvalue").executeAsync();
 
 ```
 SQLite3 db = new SQLite3(new File("database.db"));
+
 db.connect();
         
 //Deletes every row from table "TABLE" where "ID" is 100
@@ -88,6 +97,7 @@ db.deleteData().table("TABLE").where("ID", 100).executeAsync();
 
 ```java
 SQLite3 db = new SQLite3(new File("database.db"));
+
 db.connect();
         
 //Creates table with column "1COLUMN" that can store TEXT and "2COLUMN" that can store INT
@@ -101,7 +111,9 @@ db.createTable().table("TABLE").columns("1COLUMN TEXT", "2COLUMN INT").executeAs
 
 ```java
 SQLite3 db = new SQLite3(new File("database.db"));
+
 db.connect();
+
 //Deletes 2 columns from table "TABLE"
 db.deleteColumn().table("TABLE").columns("1COLUMN", "2COLUMN").executeAsync();
 ```
@@ -110,7 +122,9 @@ db.deleteColumn().table("TABLE").columns("1COLUMN", "2COLUMN").executeAsync();
 
 ```java
 SQLite3 db = new SQLite3(new File("database.db"));
+
 db.connect();
+
 //Add to table "TABLE" columns "3COLUMN" that can store text and add "4COLUMN" that can store 
 db.addColumn().table("TABLE").columns("3COLUMN TEXT", "4COLUMN INT").executeAsync();
 ```
