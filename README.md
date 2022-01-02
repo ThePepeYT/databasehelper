@@ -19,7 +19,7 @@
 ```java
         SQLite3 DB = new SQLite3(new File("database.db"));
 
-        DB.connect();```
+        DB.connect();
 
 
 ## Rows
