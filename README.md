@@ -80,6 +80,7 @@ db.updateData().table("TABLE").column("MYCOLUMN", "myvalue").executeAsync();
 
 ### deleteData
 <h4>Delete data from database</h4>
+
 ```
 SQLite3 db = new SQLite3(new File("database.db"));
 
