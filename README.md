@@ -12,24 +12,14 @@
 # 🔩 Installation
 ### Get it on jitpack [DatabaseHelper](https://jitpack.io/#ThePepeYT/databasehelper)
 
-# 📦 Packages
-<h3>The packages that the library uses are:
-<br>
-- SQLite3 driver
-<br>
-- MySQL driver
-</br>
-- MariaDB driver
-<br>
-- PostgreSQL driver
-</br>
-</h3>
+# 📙Examples
+##
 
 # 🚀 Others
 ### If you have any problems join this discord [Support](https://discord.gg/A4XZFze8WU) or you can contact me on Discord: ThePepeYT#1139.
 
 
-## **Thanks to:**
+## ❤️Thanks to:
 [Xmonpl](https://github.com/xmonpl) for all help with Rxjava
 <br>
 [dan1st](https://github.com/danthe1st) for all help with small fixes</h4>
