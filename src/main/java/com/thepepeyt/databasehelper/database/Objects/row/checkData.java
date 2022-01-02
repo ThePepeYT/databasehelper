@@ -35,7 +35,7 @@ public class checkData {
         TABLE.getObservable().subscribe(table -> {
             if(table == null) throw new DatabaseExceptions("Database table cannot be empty");
             IDENTIFIERS.getObservable().toList().subscribe(identifiers -> {
-                if(identifiers.isEmpty()) throw new DatabaseExceptions("There should be at least 1 identifier");
+                if(identifiers == null || identifiers.isEmpty()) throw new DatabaseExceptions("There should be at least 1 identifier");
                 observableType.setData(SQL.SELECT_FROM
                         .replace("{TABLE}", table) + identifiers.stream().map(n -> n.replace(n, "WHERE " + n + " =?"))
                         .collect(Collectors.joining(" AND ")));

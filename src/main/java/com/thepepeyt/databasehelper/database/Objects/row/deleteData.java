@@ -44,7 +44,7 @@ public class deleteData {
             if(table == null) throw new DatabaseExceptions("Database table cannot be empty");
             IDENTIFIERS.getObservable().toList().subscribe(identifiers -> {
                 stringBuilder.append(SQL.DELETE.replace("{TABLE}", table));
-                if(!identifiers.isEmpty()){
+                if(identifiers != null && !identifiers.isEmpty()){
                     stringBuilder.append(" " + identifiers.stream().map(n -> n.replace(n, "WHERE " + n + " =?"))
                             .collect(Collectors.joining(" AND ")));
                 }
@@ -61,7 +61,7 @@ public class deleteData {
 
     }
 
-    public void completeAsync(){
+    public void executeAsync(){
         getSQLFormula().subscribe(formula -> {
             SQL.preparedStatement(formula, preparedStatement -> {
                 VALUES.getObservable().toList().subscribe(values -> {
@@ -97,7 +97,7 @@ public class deleteData {
         });
     }
 
-    public void complete() throws SQLException {
+    public void execute() throws SQLException {
         SQL.preparedStatement(getSQLFormula().blockingFirst(), preparedStatement -> {
             try {
                 var values = VALUES.getObservable().toList().blockingGet();

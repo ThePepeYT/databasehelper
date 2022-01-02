@@ -47,7 +47,7 @@ public class addColumn {
         return observableType.getObservable();
     }
 
-    public void completeAsync(){
+    public void executeAsync(){
         getSQLFormula().subscribe(formula -> {
             SQL.preparedStatement(formula, preparedStatement -> {
                 try {
@@ -60,7 +60,7 @@ public class addColumn {
         });
     }
 
-    public void complete() throws SQLException {
+    public void execute() throws SQLException {
         SQL.preparedStatement(getSQLFormula().blockingFirst(), preparedStatement -> {
             try {
                 preparedStatement.executeUpdate();

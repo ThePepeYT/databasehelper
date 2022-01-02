@@ -29,7 +29,8 @@ public class SQLStatement implements DatabaseConnection {
 
     protected Connection connection;
 
-    public void setConnection(final Connection connection) {
+    public void setConnection(final Connection connection) throws SQLException {
+        if(this.connection != null) this.connection.close();
         this.connection = connection;
     }
 
