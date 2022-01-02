@@ -16,6 +16,7 @@
 
 ### Connect
 <h4>Creates connection beetwen your code and database</h4>
+
 ```java
 SQLite3 db = DatabaseHelper.sqLite3Builder()
   .file(new File("database.db"))
