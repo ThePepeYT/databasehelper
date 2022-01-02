@@ -21,7 +21,7 @@
 </br>
 - MariaDB driver
 <br>
-- PostegreSQL driver
+- PostgreSQL driver
 </br>
 </h3>
 
