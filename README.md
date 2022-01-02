@@ -16,7 +16,7 @@
 
 ### Connect
 <h4>Creates connection beetwen your code and database</h4>
-```
+```java
 e
 ```
 
