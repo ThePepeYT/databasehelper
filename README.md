@@ -32,4 +32,4 @@ If you have any problems join this discord[Support](https://discord.gg/A4XZFze8W
 </h3>
 
 ## **Thanks to:**
-<h4>[Xmonpl](https://github.com/xmonpl) for all help with Rxjava</h4>
+[Xmonpl](https://github.com/xmonpl) for all help with Rxjava</h4>
