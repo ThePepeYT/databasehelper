@@ -50,6 +50,21 @@ db.connect();
 //Inserts into "mycolumn" value "myvalue" in table "mytable"
 db.insertData().table("mytable").insert("mycolumn", "myvalue").executeAsync();
 ```
+### GetData
+<h4>Get data from table</h4>
+
+```java
+SQLite3 db = new SQLite3(new File("database.db"));
+
+db.connect();
+
+//Gets data "PLAYERNAME" and "PLAYERMONEY" where "PLAYERID" is "SOMEID" and print list of it
+var data = db.getData().table("TABLE")
+  .columns("PLAYERNAME", "PLAYERMONEY")
+  .where("PLAYERID", "SOMEID").completeAsync();
+
+data.subscribe(System.out::println);
+```
 
 ## Tables
 
