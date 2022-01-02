@@ -94,6 +94,7 @@ db.deleteData().table("TABLE").where("ID", 100).executeAsync();
 
 ### createTable
 <h4>Creates table as name says xD</h4>
+
 ```java
 SQLite3 db = new SQLite3(new File("database.db"));
 
