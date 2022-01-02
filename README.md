@@ -25,3 +25,11 @@
 </br>
 </h3>
 
+# 🚀 Others
+<h3>
+If you have any problems join this discord[Support](https://discord.gg/A4XZFze8WU) or you can contact me on Discord: ThePepeYT#1139.
+<br>
+</h3>
+
+## **Thanks to:**
+<h4>[Xmonpl](https://github.com/xmonpl) for all help with Rxjava</h4>
