@@ -92,8 +92,41 @@ db.deleteData().table("TABLE").where("ID", 100).executeAsync();
 
 ## Tables
 
+### createTable
+<h4>Creates table as name says xD</h4>
+```java
+SQLite3 db = new SQLite3(new File("database.db"));
+
+db.connect();
+        
+//Creates table with column "1COLUMN" that can store TEXT and "2COLUMN" that can store INT
+db.createTable().table("TABLE").columns("1COLUMN TEXT", "2COLUMN INT").executeAsync();
+```
+
 ## Columns
 
+### deleteColumn
+<h4>Delets columns from table</h4>
+
+```java
+SQLite3 db = new SQLite3(new File("database.db"));
+
+db.connect();
+
+//Deletes 2 columns from table "TABLE"
+db.deleteColumn().table("TABLE").columns("1COLUMN", "2COLUMN").executeAsync();
+```
+### addColumn
+<h4>Add columns to table</h4>
+
+```java
+SQLite3 db = new SQLite3(new File("database.db"));
+
+db.connect();
+
+//Add to table "TABLE" columns "3COLUMN" that can store text and add "4COLUMN" that can store 
+db.addColumn().table("TABLE").columns("3COLUMN TEXT", "4COLUMN INT").executeAsync();
+```
 
 # 🚀 Others
 ### If you have any problems join this discord [Support](https://discord.gg/A4XZFze8WU) or you can contact me on Discord: ThePepeYT#1139.
