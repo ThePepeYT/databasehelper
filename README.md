@@ -22,7 +22,7 @@ SQLite3 db = DatabaseHelper.sqLite3Builder()
   .file(new File("database.db"))
   .build();
   
-DB.connect();
+db.connect();
 ```
 
 
