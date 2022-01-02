@@ -39,7 +39,7 @@ db.disconnect();
 
 ## Rows
 
-### InsertData
+### insertData
 <h4>Insert data to table</h4>
 
 ```java
@@ -50,7 +50,7 @@ db.connect();
 //Inserts into "mycolumn" value "myvalue" in table "mytable"
 db.insertData().table("mytable").insert("mycolumn", "myvalue").executeAsync();
 ```
-### GetData
+### getData
 <h4>Get data from table</h4>
 
 ```java
@@ -64,6 +64,29 @@ var data = db.getData().table("TABLE")
   .where("PLAYERID", "SOMEID").completeAsync();
 
 data.subscribe(System.out::println);
+```
+
+### updateData
+<h4>Update data from database</h4>
+
+```java
+SQLite3 db = new SQLite3(new File("database.db"));
+
+db.connect();
+
+//Updates "MYCOLUMN" by value "myvalue" in table "TABLE"
+db.updateData().table("TABLE").column("MYCOLUMN", "myvalue").executeAsync();
+```
+
+### deleteData
+<h4>Delete data from database</h4>
+```
+SQLite3 db = new SQLite3(new File("database.db"));
+
+db.connect();
+        
+//Deletes every row from table "TABLE" where "ID" is 100
+db.deleteData().table("TABLE").where("ID", 100).executeAsync();
 ```
 
 ## Tables
