@@ -25,6 +25,16 @@ SQLite3 db = DatabaseHelper.sqLite3Builder()
 db.connect();
 ```
 
+### Disconnect
+
+```java
+SQLite3 db = DatabaseHelper.sqLite3Builder()
+  .file(new File("database.db"))
+  .build();
+
+db.disconnect();
+```
+
 
 ## Rows
 
