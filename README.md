@@ -49,6 +49,7 @@ db.connect();
 
 //Inserts into "mycolumn" value "myvalue" in table "mytable"
 db.insertData().table("mytable").insert("mycolumn", "myvalue").executeAsync();
+```
 
 ## Tables
 
