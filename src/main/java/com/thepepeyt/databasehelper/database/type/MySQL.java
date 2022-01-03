@@ -1,5 +1,6 @@
 package com.thepepeyt.databasehelper.database.type;
 
+import com.thepepeyt.databasehelper.Utils.DatabaseExceptions;
 import com.thepepeyt.databasehelper.database.AbstractSQLDatabase;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -14,7 +15,8 @@ public class MySQL extends AbstractSQLDatabase {
     }
 
     @Override
-    public void connect() throws SQLException {
+    public void connect() throws SQLException, DatabaseExceptions, ClassNotFoundException {
+        if(Class.forName("com.mysql.cj.jdbc.Driver") == null) throw new DatabaseExceptions("You do not have the driver for this database installed");
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("com.mysql.cj.jdbc.Driver");
         config.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database);

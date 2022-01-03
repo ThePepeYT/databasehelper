@@ -1,5 +1,6 @@
 package com.thepepeyt.databasehelper.database;
 
+import com.thepepeyt.databasehelper.Utils.DatabaseExceptions;
 import com.thepepeyt.databasehelper.database.Objects.column.addColumn;
 import com.thepepeyt.databasehelper.database.Objects.column.deleteColumn;
 import com.thepepeyt.databasehelper.database.Objects.row.*;
@@ -36,7 +37,7 @@ public class SQLStatement implements DatabaseConnection {
 
 
     @Override
-    public void connect() throws SQLException, ClassNotFoundException {}
+    public void connect() throws SQLException, ClassNotFoundException, DatabaseExceptions {}
 
     @Override
     public void disconnect() {

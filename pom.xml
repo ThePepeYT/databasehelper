@@ -44,26 +44,6 @@
 
 
     <dependencies>
-        <dependency>
-            <groupId>com.github.xerial</groupId>
-            <artifactId>sqlite-jdbc</artifactId>
-            <version>3.36.0.3</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.pgjdbc.pgjdbc</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>v42.3.0-rc5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mariadb.jdbc</groupId>
-            <artifactId>mariadb-java-client</artifactId>
-            <version>2.7.4</version>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.27</version>
-        </dependency>
 
         <dependency>
             <groupId>com.zaxxer</groupId>
@@ -71,15 +51,11 @@
             <version>5.0.0</version>
         </dependency>
 
-
-
-
         <dependency>
             <groupId>io.reactivex.rxjava3</groupId>
             <artifactId>rxjava</artifactId>
             <version>3.1.3</version>
         </dependency>
-
     </dependencies>
 
 </project>

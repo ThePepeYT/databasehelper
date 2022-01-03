@@ -1,5 +1,6 @@
 package com.thepepeyt.databasehelper.database.type;
 
+import com.thepepeyt.databasehelper.Utils.DatabaseExceptions;
 import com.thepepeyt.databasehelper.database.AbstractSQLDatabase;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -14,7 +15,8 @@ public class MariaDB extends AbstractSQLDatabase {
     }
 
     @Override
-    public void connect() throws SQLException, ClassNotFoundException {
+    public void connect() throws SQLException, ClassNotFoundException, DatabaseExceptions {
+        if(Class.forName("org.mariadb.jdbc.Driver") == null) throw new DatabaseExceptions("You do not have the driver for this database installed");
         HikariConfig config = new HikariConfig();
         config.setDriverClassName("org.mariadb.jdbc.Driver");
         config.setJdbcUrl("jdbc:mariadb://" + host + ":" + port + "/" + database);

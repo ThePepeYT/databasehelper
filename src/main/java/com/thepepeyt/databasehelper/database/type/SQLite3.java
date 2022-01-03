@@ -1,5 +1,6 @@
 package com.thepepeyt.databasehelper.database.type;
 
+import com.thepepeyt.databasehelper.Utils.DatabaseExceptions;
 import com.thepepeyt.databasehelper.database.AbstractLiteDatabase;
 import com.thepepeyt.databasehelper.database.SQLStatement;
 
@@ -14,9 +15,9 @@ public class SQLite3 extends AbstractLiteDatabase {
     @Override
     public void connect() {
         try {
-            Class.forName("org.sqlite.JDBC");
+            if(Class.forName("org.sqlite.JDBC") == null) throw new DatabaseExceptions("You do not have the driver for this database installed");
             connection = DriverManager.getConnection("jdbc:sqlite:" + file);
-        } catch (SQLException | ClassNotFoundException throwables) {
+        } catch (SQLException | ClassNotFoundException | DatabaseExceptions throwables) {
             throwables.printStackTrace();
         }
     }
