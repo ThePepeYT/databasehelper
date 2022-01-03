@@ -1,5 +1,6 @@
 package com.thepepeyt.databasehelper;
 
+import com.thepepeyt.databasehelper.Utils.DatabaseExceptions;
 import com.thepepeyt.databasehelper.database.AbstractSQLDatabase;
 import com.thepepeyt.databasehelper.database.type.*;
 
@@ -9,6 +10,8 @@ import java.sql.SQLException;
 
 
 public class DatabaseHelper {
+
+
 
 
     public static MySQLBuilder mySQLBuilder() {

@@ -13,12 +13,12 @@ public class SQLite3 extends AbstractLiteDatabase {
     }
 
     @Override
-    public void connect() {
+    public void connect() throws DatabaseExceptions {
         try {
-            if(Class.forName("org.sqlite.JDBC") == null) throw new DatabaseExceptions("You do not have the driver for this database installed");
+            Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:" + file);
-        } catch (SQLException | ClassNotFoundException | DatabaseExceptions throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException | ClassNotFoundException throwables) {
+            throw new DatabaseExceptions("You do not have the driver for this database installed");
         }
     }
 }

@@ -16,18 +16,22 @@ public class PostgreSQL extends AbstractSQLDatabase {
 
     @Override
     public void connect() throws SQLException, ClassNotFoundException, DatabaseExceptions {
-        if(Class.forName("org.postgresql.Driver") == null) throw new DatabaseExceptions("You do not have the driver for this database installed");
-        HikariConfig config = new HikariConfig();
-        config.setDriverClassName("org.postgresql.Driver");
-        config.setJdbcUrl("jdbc:postgresql://" + host + ":" + port + "/" + database);
-        config.setUsername(user);
-        config.setPassword(password);
-        config.setMaximumPoolSize(10);
-        config.addDataSourceProperty("cachePrepStmts", "true");
-        config.addDataSourceProperty("prepStmtCacheSize", "250");
-        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-        config.setAutoCommit(true);
+        try {
+            Class.forName("org.postgresql.Driver");
+            HikariConfig config = new HikariConfig();
+            config.setDriverClassName("org.postgresql.Driver");
+            config.setJdbcUrl("jdbc:postgresql://" + host + ":" + port + "/" + database);
+            config.setUsername(user);
+            config.setPassword(password);
+            config.setMaximumPoolSize(10);
+            config.addDataSourceProperty("cachePrepStmts", "true");
+            config.addDataSourceProperty("prepStmtCacheSize", "250");
+            config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+            config.setAutoCommit(true);
 
-        connection = new HikariDataSource(config).getConnection();
+            connection = new HikariDataSource(config).getConnection();
+        }catch (SQLException | ClassNotFoundException exception){
+            throw new DatabaseExceptions("You do not have the driver for this database installed");
+        }
     }
 }

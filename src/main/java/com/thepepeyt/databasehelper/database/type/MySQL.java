@@ -16,19 +16,24 @@ public class MySQL extends AbstractSQLDatabase {
 
     @Override
     public void connect() throws SQLException, DatabaseExceptions, ClassNotFoundException {
-        if(Class.forName("com.mysql.cj.jdbc.Driver") == null) throw new DatabaseExceptions("You do not have the driver for this database installed");
-        HikariConfig config = new HikariConfig();
-        config.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        config.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database);
-        config.setUsername(user);
-        config.setPassword(password);
-        config.setMaximumPoolSize(10);
-        config.addDataSourceProperty("cachePrepStmts", "true");
-        config.addDataSourceProperty("prepStmtCacheSize", "250");
-        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-        config.setAutoCommit(true);
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            HikariConfig config = new HikariConfig();
+            config.setDriverClassName("com.mysql.cj.jdbc.Driver");
+            config.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database);
+            config.setUsername(user);
+            config.setPassword(password);
+            config.setMaximumPoolSize(10);
+            config.addDataSourceProperty("cachePrepStmts", "true");
+            config.addDataSourceProperty("prepStmtCacheSize", "250");
+            config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+            config.setAutoCommit(true);
 
-        connection = new HikariDataSource(config).getConnection();
+            connection = new HikariDataSource(config).getConnection();
+
+        }catch (SQLException | ClassNotFoundException throwables) {
+            throw new DatabaseExceptions("You do not have the driver for this database installed");
+        }
 
 
 
