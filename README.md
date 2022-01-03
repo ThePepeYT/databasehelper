@@ -58,7 +58,7 @@ SQLite3 db = new SQLite3(new File("database.db"));
 
 db.connect();
 
-//Gets data "PLAYERNAME" and "PLAYERMONEY" where "PLAYERID" is "SOMEID" and print list of it
+//Gets data "PLAYERNAME" and "PLAYERMONEY" where "PLAYERID" is "SOMEID" and hashmap of it
 var data = db.getData().table("TABLE")
   .columns("PLAYERNAME", "PLAYERMONEY")
   .where("PLAYERID", "SOMEID").completeAsync();
