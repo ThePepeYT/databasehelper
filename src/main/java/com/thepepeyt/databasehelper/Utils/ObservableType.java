@@ -29,6 +29,8 @@ public class ObservableType<E> {
         }
     }
 
+
+
     public void addValue(E... values) {
         for (E e : values) {
             observable.add(e);

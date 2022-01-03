@@ -6,6 +6,7 @@ import io.reactivex.rxjava3.core.Observable;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -91,8 +92,8 @@ public class getData{
 
 
 
-    public Observable<Object> completeAsync(){
-        ObservableType<Object> observableType = new ObservableType<>();
+    public Observable<HashMap<String, Object>> completeAsync(){
+        ObservableType<HashMap<String, Object>> observableType = new ObservableType<>();
         getSQLFormula().subscribe(FORMULA -> {
             SQL.preparedStatement(FORMULA, preparedStatement -> {
                 IDENTIFIERS.getObservable().toList().subscribe(x -> {
@@ -128,27 +129,30 @@ public class getData{
                         }
                         ResultSet rs = preparedStatement.executeQuery();
 
+                        HashMap<String,Object> map = new HashMap<>();
+
                         while (rs.next()) {
                             list.forEach(y -> {
                                 try {
-                                    observableType.addValue(rs.getObject(y));
-
+                                    map.put(y, rs.getObject(y));
                                 } catch (SQLException e) {
                                     e.printStackTrace();
                                 }
                             });
                         }
+                        observableType.setData(map);
                     });
                 });
             });
         });
 
+
             return observableType.getObservable();
         }
 
 
-    public List<Object> complete(){
-        return completeAsync().toList().blockingGet();
+    public HashMap<String,Object> complete(){
+        return completeAsync().blockingSingle();
     }
 
 
