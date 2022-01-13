@@ -74,8 +74,8 @@ public class getData{
                                 .replace("{TABLE}", table)
                                 .replace("{VALUES}", SELECTOR.stream().collect(Collectors.joining(",", "", ""))));
                         if(!IDENTIFIER.isEmpty()) {
-                            stringBuilder.append(IDENTIFIER.stream().map(n -> n.replace(n, "WHERE " + n + " =?"))
-                                    .collect(Collectors.joining(" AND ")));
+                            stringBuilder.append(IDENTIFIER.stream().map(n -> n.replace(n, n + "=?"))
+                                    .collect(Collectors.joining(" AND ", "WHERE ", "")));
                         }
                         if(!ORDERBY.isEmpty()){
                             stringBuilder.append(" " + ORDERBY.stream().collect(Collectors.joining(",", "", "")));

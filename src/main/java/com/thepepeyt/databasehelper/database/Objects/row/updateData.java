@@ -76,8 +76,8 @@ public class updateData {
                                     .replace("{TABLE}", table)
                                     .replace("{COLUMNS}", columns.stream().map(n -> n.replace(n, n + "=?")).collect(Collectors.joining(", "))));
 
-                            if(!identifiers.isEmpty()) stringBuilder.append(" " + identifiers.stream().map(n -> n.replace(n, "WHERE " + n + " =?"))
-                                    .collect(Collectors.joining(" AND ")));
+                            if(!identifiers.isEmpty()) stringBuilder.append(" " + identifiers.stream().map(n -> n.replace(n, n + "=?"))
+                                    .collect(Collectors.joining(" AND ", "WHERE ", "")));
 
 
                         });

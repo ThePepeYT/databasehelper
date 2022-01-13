@@ -45,8 +45,8 @@ public class deleteData {
             IDENTIFIERS.getObservable().toList().subscribe(identifiers -> {
                 stringBuilder.append(SQL.DELETE.replace("{TABLE}", table));
                 if(identifiers != null && !identifiers.isEmpty()){
-                    stringBuilder.append(" " + identifiers.stream().map(n -> n.replace(n, "WHERE " + n + " =?"))
-                            .collect(Collectors.joining(" AND ")));
+                    stringBuilder.append(" " + identifiers.stream().map(n -> n.replace(n, n + "=?"))
+                            .collect(Collectors.joining(" AND ", "WHERE ", "")));
                 }
 
 

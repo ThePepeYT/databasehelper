@@ -37,8 +37,8 @@ public class checkData {
             IDENTIFIERS.getObservable().toList().subscribe(identifiers -> {
                 if(identifiers == null || identifiers.isEmpty()) throw new DatabaseExceptions("There should be at least 1 identifier");
                 observableType.setData(SQL.SELECT_FROM
-                        .replace("{TABLE}", table) + identifiers.stream().map(n -> n.replace(n, "WHERE " + n + " =?"))
-                        .collect(Collectors.joining(" AND ")));
+                        .replace("{TABLE}", table) + identifiers.stream().map(n -> n.replace(n, n + "=?"))
+                        .collect(Collectors.joining(" AND ", "WHERE ", "")));
 
             });
         });

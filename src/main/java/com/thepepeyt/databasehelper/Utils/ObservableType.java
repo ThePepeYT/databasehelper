@@ -5,11 +5,15 @@ import io.reactivex.rxjava3.internal.operators.observable.ObservableCollect;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class ObservableType<E> {
+
+
+
+
+
 
 
     private List<E> observable = new ArrayList<>();

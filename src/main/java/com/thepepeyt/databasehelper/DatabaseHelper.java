@@ -1,12 +1,10 @@
 package com.thepepeyt.databasehelper;
 
-import com.thepepeyt.databasehelper.Utils.DatabaseExceptions;
 import com.thepepeyt.databasehelper.database.AbstractSQLDatabase;
 import com.thepepeyt.databasehelper.database.type.*;
 
 
 import java.io.File;
-import java.sql.SQLException;
 
 
 public class DatabaseHelper {
